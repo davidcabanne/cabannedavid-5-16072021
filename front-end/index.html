@@ -1,10 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="./syles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Camera</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <nav>
+        <div class="nav__logo">
+          <a href="#">
+            <img
+              src="./img/logo-cameras-by-orinoco.svg"
+              alt="logo"
+              class="nav__logo-svg"
+            />
+          </a>
+        </div>
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+        </ul>
+        <div class="nav__cart">
+          <i class="fas fa-shopping-cart nav__cart__icon"></i>
+          <!-- <div class="nav__cart__title">Panier</div> -->
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="main__bg-container">
+        <div class="main__heading-container">
+          <h1 class="main__heading-one">
+            The best vintage
+            <span class="main__heading-one__cameras">cameras</span>.
+          </h1>
+          <h2 class="main__heading-two">
+            Selected by Orinoco's finest technicians
+          </h2>
+        </div>
+        <div class="main__img-container">
+          <img
+            src="./img/Leica-camera-home.png"
+            alt="appareil photo de la marque Leica"
+            class="main__img"
+          />
+          <div class="main__img-shadow"></div>
+        </div>
+      </div>
+      <a href="#section__dyn">
+        <div class="main__collection-link">
+          <div class="main__collection-group">
+            <div class="main__collection-text">Our collection</div>
+            <i class="fas fa-arrow-down arrow-move"></i>
+          </div>
+        </div>
+      </a>
+    </main>
+    <!-- dyn JavaScript starts here -->
+    <section class="section__dyn" id="section__dyn">
+      <div id="section__dyn--wrapper" class="section__dyn--wrapper">
+        <template id="templateArticle">
+          <article class="article">
+            <div class="article__image">
+              <div id="image--result" class="article__image--result"></div>
+            </div>
+            <div class="article__info--container">
+              <div class="article__info--align">
+                <h2 id="article__name" class="article__name"></h2>
+                <h2 id="article__price" class="article__price"></h2>
+              </div>
+              <p id="article__description" class="article__description"></p>
+              <div>
+                <div class="article__lens--container">
+                  <!-- <div>Available lenses :</div> -->
+                  <select name="lens" id="article__lens" class="article__lens">
+                    <option id="option__lens" value="">
+                      Please choose an option
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+    </section>
+    <!-- dyn JavaScript ends here -->
+    <footer></footer>
+    <!-- Importing JS scripts -->
+    <script src="./app.js" defer></script>
+  </body>
 </html>
