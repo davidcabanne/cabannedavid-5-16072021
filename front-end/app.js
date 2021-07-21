@@ -62,16 +62,16 @@ function displayArticle() {
     `;
   }
 
-  // fetching & displaying <lens> of Article
-  /////
-  for (lens of article.lenses) {
-    console.log(lens);
+  // // fetching & displaying <lens> of Article
+  // /////
+  // for (lens of article.lenses) {
+  //   console.log(lens);
 
-    cloneElt.getElementById("article__lens").innerHTML = `
-    <option value="empty">Please choose an option</option>
-    <option value="${article.lenses[0]}">${article.lenses[0]}</option>
-    `;
-  }
+  //   cloneElt.getElementById("article__lens").innerHTML = `
+  //   <option value="empty">Please choose an option</option>
+  //   <option value="${article.lenses[0]}">${article.lenses[0]}</option>
+  //   `;
+  // }
 
   // display Template
   // + creates element as child of .section__dyn--wrapper
