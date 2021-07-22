@@ -78,7 +78,9 @@
         <template id="templateArticle">
           <article class="article">
             <div class="article__image">
-              <div id="image--result" class="article__image--result"></div>
+              <div class="article__image--result">
+                <img class="article__image--custom" alt="appareil photo" />
+              </div>
             </div>
             <div class="article__info--container">
               <div class="article__info--align">
@@ -89,10 +91,10 @@
               <div>
                 <div class="article__lens--container">
                   <!-- <div>Available lenses :</div> -->
-                  <select name="lens" id="article__lens" class="article__lens">
-                    <option id="option__lens" value="">
+                  <select class="article__lens">
+                    <!-- <option id="option__lens" value="">
                       Please choose an option
-                    </option>
+                    </option> -->
                   </select>
                 </div>
               </div>

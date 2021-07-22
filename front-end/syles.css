@@ -336,6 +336,8 @@ main {
   border-radius: 20px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
+  -webkit-appearance: none;
+  border: none;
 }
 
 .article__lens:hover {

@@ -26,7 +26,7 @@ async function getArticles() {
   );
 }
 
-function displayArticle() {
+function displayArticle(article) {
   // get template
   const templateElt = document.getElementById("templateArticle");
 
@@ -34,44 +34,36 @@ function displayArticle() {
   const cloneElt = document.importNode(templateElt.content, true);
 
   // fetching & displaying <img> of Article
-  cloneElt.getElementById(
-    "image--result"
-  ).innerHTML = `<img src=${article.imageUrl} class="article__image--custom" alt="appareil photo" />`;
+  let img = cloneElt.querySelector(".article__image--result img");
+  img.setAttribute("src", article.imageUrl);
 
   // fetching & displaying <name> of Article
   cloneElt.getElementById("article__name").textContent = article.name;
 
   // fetching & displaying <price> of Article
-  cloneElt.getElementById("article__price").textContent =
-    article.price / 100 + ",00 €";
+  cloneElt.getElementById("article__price").textContent = `${
+    article.price / 100
+  }.00 €`;
 
   // fetching & displaying <description> of Article
   cloneElt.getElementById("article__description").textContent =
     article.description;
 
   // fetching & displaying <lens> of Article
-  /////
+  let i = 0;
+  let select = cloneElt.querySelector(".article__lens");
   for (lens of article.lenses) {
-    console.log(lens);
+    console.log(article.lenses);
 
-    cloneElt.getElementById("article__lens").innerHTML = `
-    <option value="empty">Please choose an option</option>
-    <option value="${article.lenses[0]}">${article.lenses[0]}</option>
-    <option value="${article.lenses[1]}">${article.lenses[1]}</option>
-    <option value="${article.lenses[2]}">${article.lenses[2]}</option>
-    `;
+    let option = document.createElement("option");
+    option.setAttribute("value", i);
+
+    option.innerHTML = lens;
+
+    select.appendChild(option);
+    i++;
+    console.log(i);
   }
-
-  // // fetching & displaying <lens> of Article
-  // /////
-  // for (lens of article.lenses) {
-  //   console.log(lens);
-
-  //   cloneElt.getElementById("article__lens").innerHTML = `
-  //   <option value="empty">Please choose an option</option>
-  //   <option value="${article.lenses[0]}">${article.lenses[0]}</option>
-  //   `;
-  // }
 
   // display Template
   // + creates element as child of .section__dyn--wrapper
