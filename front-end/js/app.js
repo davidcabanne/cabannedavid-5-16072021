@@ -24,7 +24,13 @@ async function getArticles() {
       })
       // if error => catch
       .catch(function (error) {
-        alert("La connexion au serveur n'a pas pu être effectué.");
+        // alert("La connexion au serveur n'a pas pu être effectué.");
+        let articlesContainer = document.querySelector(".section__dyn");
+        articlesContainer.classList.add("fetching__error");
+        articlesContainer.innerHTML =
+          "An error has occurred, we couldn't display our goods.<br>Please start the local server (port 3000).<br>If the problem doesn't go away, please contact us!";
+        articlesContainer.style.textAlign = "center";
+        articlesContainer.style.padding = "30vh 0";
       })
   );
 }
@@ -44,9 +50,21 @@ function displayArticle(article) {
   cloneElt.getElementById("article__name").textContent = article.name;
 
   // fetching & displaying <price> of Article
-  cloneElt.getElementById("article__price").textContent = `${
-    article.price / 100
-  }.00 €`;
+  // 1st way :
+  // cloneElt.getElementById("article__price").textContent = `${
+  //   article.price / 100
+  // }.00 €`;
+
+  // fetching & displaying <price> of Article
+  // 2nd way :
+  article.price = article.price / 100;
+  cloneElt.getElementById("article__price").innerHTML = new Intl.NumberFormat(
+    "fr-FR",
+    {
+      style: "currency",
+      currency: "EUR",
+    }
+  ).format(article.price);
 
   // fetching & displaying <description> of Article
   cloneElt.getElementById("article__description").textContent =

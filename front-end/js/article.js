@@ -22,7 +22,12 @@ function getArticleData(articleId) {
       })
       // if error => catch
       .catch(function (error) {
-        alert("La connexion au serveur n'a pas pu être effectué.");
+        let articlesContainer = document.querySelector(".section__dyn");
+        articlesContainer.classList.add("fetching__error");
+        articlesContainer.innerHTML =
+          "An error has occurred, we couldn't display our goods.<br>Please start the local server (port 3000).<br>If the problem doesn't go away, please contact us!";
+        articlesContainer.style.textAlign = "center";
+        articlesContainer.style.padding = "30vh 0";
       })
   );
 }

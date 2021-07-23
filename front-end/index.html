@@ -21,6 +21,16 @@
     <title>Cam&ras</title>
   </head>
   <body>
+    <div class="animation__container">
+      <div class="animation__group">
+        <img
+          src="./img/logo-cameras-by-orinoco.svg"
+          alt="logo"
+          class="animation__logo-img"
+        />
+      </div>
+    </div>
+
     <header>
       <nav>
         <div class="nav__logo">
@@ -32,17 +42,33 @@
             />
           </a>
         </div>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
+        <div class="nav-container">
+          <ul>
+            <li class="nav__link"><a href="index.html">Home</a></li>
+            <li class="nav__link"><a href="#">About</a></li>
+            <li class="nav__link"><a href="#">Contact</a></li>
+          </ul>
+        </div>
         <div class="nav__cart">
-          <a href="#"> <i class="fas fa-shopping-cart nav__cart__icon"></i></a>
+          <a href="index.html" class="nav__cart__link">
+            <i class="fas fa-shopping-cart nav__cart__icon"></i
+          ></a>
           <!-- <div class="nav__cart__title">Panier</div> -->
         </div>
       </nav>
+      <div class="burger-wrapper">
+        <div class="burger-container">
+          <div class="burger">
+            <span class="line1"></span>
+            <span class="line2"></span>
+            <span class="line3"></span>
+          </div>
+        </div>
+      </div>
     </header>
+
+    <div class="section__menufix"></div>
+
     <main>
       <div class="main__bg-container">
         <div class="main__heading-container">
@@ -112,5 +138,6 @@
     <footer></footer>
     <!-- Importing JS scripts -->
     <script src="./js/app.js" defer></script>
+    <script src="./js/burger-menu.js" defer></script>
   </body>
 </html>
