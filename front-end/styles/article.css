@@ -1,0 +1,311 @@
+/****** START OF CSS RESET & BASIC STYLINGS ******/
+:root {
+  --font-size: 14px;
+  --responsive-font-size: calc(4vw + 4vh + 2vmin);
+  --responsive-title-size: calc(2vw + 2vh + 1vmin);
+  --heading-one: 70px;
+  --primary: rgb(226, 213, 202);
+  --secondary: rgb(192, 149, 100);
+  --secondary-cta: rgb(78, 69, 59);
+  --darks: rgb(42, 45, 48);
+  --half-darks: rgb(83, 89, 95);
+  --whites: rgb(209, 214, 218);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Roboto", Helvetica, sans-serif;
+  overflow-x: hidden;
+  background-color: var(--primary);
+  background: linear-gradient(135deg, rgb(226, 213, 202), rgb(182, 171, 162));
+}
+/****** END OF CSS RESET & BASIC STYLINGS ******/
+
+/*******************************/
+/****** START OF <header> ******/
+/*******************************/
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 90px;
+}
+nav {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+}
+
+.nav__logo-svg {
+  width: 200px;
+  height: auto;
+  transition: 0.5s ease-in-out;
+}
+.nav__logo-svg:hover {
+  margin-left: 10px;
+  opacity: 0.7;
+}
+
+.nav__cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 15px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+.nav__cart:hover {
+  box-shadow: 5px 5px 16px 0 rgba(0, 0, 0, 0.15),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.1);
+}
+.nav__cart:hover > .nav__cart__link > .nav__cart__icon {
+  color: var(--secondary);
+}
+
+.nav__cart__icon,
+.nav__cart__title {
+  font-size: var(--font-size);
+  color: var(--darks);
+}
+.nav__cart__icon {
+  font-size: 20px;
+  transition: all 0.4s ease-in-out;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  margin-left: auto;
+}
+li {
+  margin-right: 30px;
+}
+li a {
+  font-size: var(--font-size);
+  color: var(--darks);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+li a:hover {
+  color: var(--secondary);
+}
+/*******************************/
+/******** END OF <header> ******/
+/*******************************/
+
+.section__backlink {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section__backlink--wrapper {
+  width: 90vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.article__backlink--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  border-radius: 20px;
+  border: 2px solid var(--darks);
+  transition: 0.3s ease-in-out;
+}
+.article__backlink {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--darks);
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+.article__backlink--container:hover {
+  background: none;
+  border: 2px solid var(--secondary);
+}
+.article__backlink--container:hover > .article__backlink {
+  color: var(--secondary);
+}
+.article__backlink--icon {
+  margin-right: 10px;
+  transition: 0.3s ease-in-out;
+}
+.article__backlink--container:hover
+  > .article__backlink
+  > .article__backlink--icon {
+  color: var(--secondary);
+  transform: scale(1.2);
+}
+
+/* DYN JAVASCRIPT STARTS HERE  */
+
+.section__dyn {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section__dyn--wrapper {
+  width: 90vw;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-gap: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.article {
+  position: relative;
+  height: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background: var(--primary); */
+  border-radius: 20px;
+  margin-bottom: 40px;
+  /* box-shadow: 5px 5px 16px 0 rgba(0, 0, 0, 0.15),
+      -8px -8px 12px 0 rgba(255, 255, 255, 0.1); */
+}
+
+.article__image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+}
+.article__image::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: chocolate;
+  opacity: 0.15;
+  transform: translateY(-1px);
+}
+
+.article__image--custom {
+  border-radius: 20px;
+  object-fit: cover;
+  width: 100%;
+  height: 300px;
+  opacity: 0.8;
+}
+
+.article__info--container {
+  width: 100%;
+  margin-top: 50px;
+  /* padding: 30px; */
+}
+.article__info--align {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  height: 30px;
+}
+
+.article__name {
+  font-size: calc(var(--responsive-font-size) / 1.8);
+  font-weight: 800;
+  color: var(--darks);
+}
+.article__price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--darks);
+  /* background: var(--darks); */
+  border: 2px solid var(--darks);
+  min-height: 30px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.article__price:hover {
+  color: var(--secondary);
+  border: 2px solid var(--secondary);
+  box-shadow: 5px 5px 16px 0 rgba(0, 0, 0, 0.15),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.1);
+}
+.article__description {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--half-darks);
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.article__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.article__lens--container {
+  position: relative;
+  max-width: fit-content;
+  max-width: -moz-fit-content;
+  padding: 10px 20px;
+  width: 100%;
+  background: var(--darks);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.article__lens--container:hover {
+  background: var(--secondary-cta);
+}
+
+.article__lens {
+  background: none;
+  outline: none;
+  border: none;
+  font-size: var(--font-size);
+  color: var(--whites);
+  /* -webkit-appearance: none; */
+  border: none;
+}
+
+/* DYN JAVASCRIPT ENDS HERE  */
+
+@media screen and (max-width: 768px) {
+}

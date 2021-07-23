@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./syles.css" />
+    <link rel="stylesheet" href="./styles/syles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -18,13 +18,13 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
-    <title>Camera</title>
+    <title>Cam&ras</title>
   </head>
   <body>
     <header>
       <nav>
         <div class="nav__logo">
-          <a href="#">
+          <a href="index.html">
             <img
               src="./img/logo-cameras-by-orinoco.svg"
               alt="logo"
@@ -33,12 +33,12 @@
           </a>
         </div>
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
         <div class="nav__cart">
-          <i class="fas fa-shopping-cart nav__cart__icon"></i>
+          <a href="#"> <i class="fas fa-shopping-cart nav__cart__icon"></i></a>
           <!-- <div class="nav__cart__title">Panier</div> -->
         </div>
       </nav>
@@ -89,13 +89,18 @@
               </div>
               <p id="article__description" class="article__description"></p>
               <div>
-                <div class="article__lens--container">
-                  <!-- <div>Available lenses :</div> -->
-                  <select class="article__lens">
-                    <!-- <option id="option__lens" value="">
-                      Please choose an option
-                    </option> -->
-                  </select>
+                <div class="article__footer">
+                  <div class="article__lens--container">
+                    <select class="article__lens"></select>
+                  </div>
+                  <div class="article__link--container">
+                    <a
+                      href="article.html"
+                      id="article__link"
+                      class="article__link"
+                      >+ More details</a
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -106,6 +111,6 @@
     <!-- dyn JavaScript ends here -->
     <footer></footer>
     <!-- Importing JS scripts -->
-    <script src="./app.js" defer></script>
+    <script src="./js/app.js" defer></script>
   </body>
 </html>

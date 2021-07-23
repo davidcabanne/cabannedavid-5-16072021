@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/article.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Cam&ras</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav__logo">
+          <a href="index.html">
+            <img
+              src="./img/logo-cameras-by-orinoco.svg"
+              alt="logo"
+              class="nav__logo-svg"
+            />
+          </a>
+        </div>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="nav__cart">
+          <a href="#" class="nav__cart__link"> <i class="fas fa-shopping-cart nav__cart__icon"></i></a>
+          <!-- <div class="nav__cart__title">Panier</div> -->
+        </div>
+      </nav>
+    </header>
+
+    <section class="section__backlink">
+      <div class="section__backlink--wrapper">
+      <div class="article__backlink--container">
+        <a href="index.html" class="article__backlink"
+          ><i
+            class="fas fa-chevron-left article__backlink--icon"
+          ></i
+          >back</a
+        >
+      </div>
+    </div>
+    </div>
+    </section>
+
+    <!-- dyn JavaScript starts here -->
+    <section class="section__dyn" id="section__dyn">
+      <div id="section__dyn--wrapper" class="section__dyn--wrapper">
+        <article class="article">
+          <div class="article__image">
+            <div class="article__image--result">
+              <img class="article__image--custom" alt="appareil photo" />
+            </div>
+          </div>
+          <div class="article__info--container">
+            <div class="article__info--align">
+              <h2 id="article__name" class="article__name"></h2>
+              <h2 id="article__price" class="article__price"></h2>
+            </div>
+            <p id="article__description" class="article__description"></p>
+            <div>
+              <div class="article__footer">
+                <div class="article__lens--container">
+                  <select class="article__lens"></select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- dyn JavaScript ends here -->
+
+    <footer></footer>
+    <!-- Importing JS scripts -->
+    <script src="./js/article.js" defer></script>
+  </body>
+</html>

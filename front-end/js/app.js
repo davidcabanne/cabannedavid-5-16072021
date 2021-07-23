@@ -1,3 +1,6 @@
+// API :
+// http://localhost:3000/api/cameras
+
 // Auto-called func when loads
 (async function () {
   const articles = await getArticles();
@@ -52,18 +55,21 @@ function displayArticle(article) {
   // fetching & displaying <lens> of Article
   let i = 0;
   let select = cloneElt.querySelector(".article__lens");
-  for (lens of article.lenses) {
-    console.log(article.lenses);
+  // Default lens opt
+  let optionDefault = document.createElement("option");
+  optionDefault.innerHTML = `Please choose a lens`;
+  select.appendChild(optionDefault);
 
+  for (lens of article.lenses) {
     let option = document.createElement("option");
     option.setAttribute("value", i);
-
     option.innerHTML = lens;
-
     select.appendChild(option);
+
     i++;
-    console.log(i);
   }
+  // creating dyanmic links to product page
+  cloneElt.getElementById("article__link").href += `?id=${article._id}`;
 
   // display Template
   // + creates element as child of .section__dyn--wrapper
