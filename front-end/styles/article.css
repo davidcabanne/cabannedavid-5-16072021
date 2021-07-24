@@ -76,7 +76,7 @@ body {
   }
   20% {
     opacity: 0.75;
-    transform: translateX(0vw) scale(1.1);
+    transform: translateX(5vw) scaleX(0.85);
   }
   30% {
     transform: translateX(-5vw) scale(1.1);
@@ -88,11 +88,16 @@ body {
     transform: translateX(-7vw) scale(1.1);
   }
   70% {
-    transform: translateX(-8vw) scale(1.1);
+    transform: translateX(-8vw) scaleX(0.75) scale(1.1);
+    opacity: 0.75;
+  }
+  75% {
+    transform: translateX(60vw) scaleX(1.5);
+    opacity: 0.5;
   }
   100% {
     opacity: 0.5;
-    transform: translateX(100vw) scale(0.5);
+    transform: translateX(120vw) scaleX(1) scale(0.5);
   }
 }
 @keyframes loadingBody {
@@ -237,18 +242,20 @@ li a:hover {
 /*******************************/
 
 .section__backlink {
+  position: relative;
   width: 100vw;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 70px;
+  align-items: flex-start;
+  height: auto;
 }
 
 .section__backlink--wrapper {
   width: 90vw;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .article__backlink--container {
@@ -256,9 +263,29 @@ li a:hover {
   justify-content: center;
   align-items: center;
   width: auto;
+  height: 40px;
   border-radius: 20px;
   border: 2px solid var(--darks);
   transition: 0.3s ease-in-out;
+}
+.article__preview--button--container__anim {
+  transition: 0.5s ease-in-out;
+  transition-delay: 100ms;
+}
+.article__preview--button--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 2px solid var(--darks);
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s ease-in-out;
+}
+.article__preview--button--container__toggle {
+  transform: translateY(calc(100vh - (90px + 70px + 15px + 40px + 30px)));
 }
 .article__backlink {
   font-size: 16px;
@@ -269,6 +296,17 @@ li a:hover {
   transition: 0.3s ease-in-out;
 }
 
+.article__preview--button {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--darks);
+  padding: 10px 20px;
+  cursor: pointer;
+  /* transition: 0.3s ease-in-out; */
+}
 .article__backlink--container:hover {
   background: none;
   border: 2px solid var(--secondary);
@@ -276,12 +314,47 @@ li a:hover {
 .article__backlink--container:hover > .article__backlink {
   color: var(--secondary);
 }
+.article__preview--button--container:hover {
+  background: var(--secondary);
+  border: 2px solid transparent;
+}
+.article__preview--button--container:hover > .article__preview--button {
+  color: var(--whites);
+}
 .article__backlink--icon {
   margin-right: 10px;
+}
+.article__preview--icon {
+  margin-top: 2px;
+  transform: rotate(0deg);
+  transition: 0.3s ease-in-out;
+}
+.article__preview--icon__toggle {
+  color: var(--whites);
+  margin-top: 0px;
+  transform: rotate(-180deg);
+  transition: 0.3s ease-in-out;
+}
+.article__preview--button--container__toggle--cta {
+  background: var(--secondary);
+  border: 2px solid var(--secondary);
+  transition: 0.3s ease-in-out;
+}
+.article__preview--button--container__toggle--cta:hover {
+  background: var(--secondary-cta);
+  border: 2px solid var(--secondary-cta);
+  transition: 0.3s ease-in-out;
 }
 .article__backlink--container:hover
   > .article__backlink
   > .article__backlink--icon {
+  color: var(--secondary);
+  transform: scale(1.2);
+  transition: 0.3s ease-in-out;
+}
+.article__preview--button--container:hover
+  > .article__preview--button
+  > .preview--icon {
   color: var(--secondary);
   transform: scale(1.2);
   transition: 0.3s ease-in-out;
@@ -308,6 +381,11 @@ li a:hover {
   border-top-right-radius: 40px;
   box-shadow: 5px 5px 16px 0 rgba(0, 0, 0, 0.15),
     -8px -8px 12px 0 rgba(255, 255, 255, 0.15);
+  transition: 0.5s ease-in-out;
+}
+.section__dyn__toggle {
+  border-top-right-radius: 0px;
+  transform: translateY(90%);
 }
 .fetching__error {
   font-size: 20px;
@@ -347,23 +425,23 @@ li a:hover {
 .article__price {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   font-size: 16px;
   font-weight: 500;
   color: var(--darks);
-  border: 2px solid var(--darks);
-  min-height: 30px;
-  padding: 10px 15px;
+  min-height: 100%;
   border-radius: 20px;
-  /* cursor: pointer; */
+  /* border: 2px solid var(--darks); */
+  /* padding: 10px 20px; */
+  /* background: var(--secondary); */
   transition: 0.3s ease-in-out;
 }
-.article__price:hover {
+/* .article__price:hover {
   color: var(--secondary);
   border: 2px solid var(--secondary);
   box-shadow: 5px 5px 16px 0 rgba(0, 0, 0, 0.15),
     -8px -8px 12px 0 rgba(255, 255, 255, 0.1);
-}
+} */
 .article__description {
   font-size: 16px;
   line-height: 1.4;
@@ -382,17 +460,23 @@ li a:hover {
 
 .article__lens--container {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: fit-content;
   max-width: -moz-fit-content;
   padding: 10px 20px;
   width: 100%;
+  height: 40px;
   background: var(--darks);
-  border-radius: 20px;
+  border: 2px solid var(--darks);
+  border-radius: 40px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
 .article__lens--container:hover {
   background: var(--secondary-cta);
+  border: 2px solid var(--secondary-cta);
 }
 
 .article__lens {
@@ -401,8 +485,46 @@ li a:hover {
   border: none;
   font-size: var(--font-size);
   color: var(--whites);
+  cursor: pointer;
   /* -webkit-appearance: none; */
   border: none;
+}
+
+.article__button--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 40px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background: var(--secondary);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.article__cta__cart {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--whites);
+  padding: 10px 20px;
+  height: 40px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.article__button--container:hover {
+  background: var(--whites);
+  border: 2px solid transparent;
+  box-shadow: 5px 5px 16px 0 rgba(0, 0, 0, 0.15),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.1);
+}
+.article__button--container:hover > .article__cta__cart {
+  transform: scale(1.05);
+  color: var(--secondary);
 }
 
 /*******************************/
