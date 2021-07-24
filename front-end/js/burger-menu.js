@@ -31,6 +31,8 @@ links.forEach((link) => {
   });
 });
 
+// Product page animation
+
 const previewLink = document.querySelector(".article__preview--button");
 const previewLinkContainer = document.querySelector(
   ".article__preview--button--container__anim"
