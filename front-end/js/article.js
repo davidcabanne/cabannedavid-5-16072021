@@ -26,8 +26,6 @@ function getArticleData(articleId) {
         articlesContainer.classList.add("fetching__error");
         articlesContainer.innerHTML =
           "An error has occurred, we couldn't display our goods.<br>Please start the local server (port 3000).<br>If the problem doesn't go away, please contact us!";
-        articlesContainer.style.textAlign = "center";
-        articlesContainer.style.padding = "30vh 0";
       })
   );
 }
@@ -38,12 +36,23 @@ function displayArticle(articleData) {
   document
     .querySelector(".article__image--custom")
     .setAttribute("src", imgArticle);
+
   // fetching & displaying <name> of Article
   document.getElementById("article__name").textContent = articleData.name;
+
   // fetching & displaying <price> of Article
-  document.getElementById("article__price").textContent = `${
-    articleData.price / 100
-  }.00 €`;
+  // document.getElementById("article__price").textContent = `${
+  //   articleData.price / 100
+  // }.00 €`;
+  articleData.price = articleData.price / 100;
+  document.getElementById("article__price").innerHTML = new Intl.NumberFormat(
+    "fr-FR",
+    {
+      style: "currency",
+      currency: "EUR",
+    }
+  ).format(articleData.price);
+
   // fetching & displaying <description> of Article
   document.getElementById("article__description").textContent =
     articleData.description;
@@ -51,6 +60,7 @@ function displayArticle(articleData) {
   // fetching & displaying <lens> of Article
   let i = 0;
   let select = document.querySelector(".article__lens");
+
   // Default lens opt
   let optionDefault = document.createElement("option");
   optionDefault.innerHTML = `Please choose a lens`;
@@ -58,10 +68,116 @@ function displayArticle(articleData) {
 
   for (lens of articleData.lenses) {
     let option = document.createElement("option");
-    option.setAttribute("value", i);
+    option.classList.add("article__lens__option");
+    option.setAttribute("value", lens);
+    // option.setAttribute("value", i);
     option.innerHTML = lens;
     select.appendChild(option);
-
     i++;
   }
+
+  // ************************************** //
+  // ******** Cart functionalities ******** //
+  // ************************************** //
+  //
+  // fetching datas selected by the user & sending to cart
+
+  const selectLensId = document.querySelector(".article__lens");
+  const btnSendToCart = document.querySelector("#send-to-cart");
+
+  btnSendToCart.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const userSelectedValue = selectLensId.value;
+
+    if (userSelectedValue === "Please choose a lens") {
+      let cartErrorContainerClose = document.getElementById(
+        "cartError__section--icon"
+      );
+      let cartErrorContainer = document.querySelector(".cartError__section");
+      let cartErrorContainerText = document.querySelector(
+        ".cartError__section--text"
+      );
+
+      cartErrorContainerText.innerHTML =
+        "Please choose a lens before proceeding to checkout!";
+
+      cartErrorContainer.classList.add("cartError__section--display");
+
+      cartErrorContainerClose.addEventListener("click", function () {
+        cartErrorContainer.classList.add("cartError__section--display--out");
+
+        function cartAnimationOut() {
+          cartErrorContainer.classList.remove("cartError__section--display");
+          cartErrorContainer.classList.remove(
+            "cartError__section--display--out"
+          );
+        }
+
+        setTimeout(cartAnimationOut, 500);
+        // clearTimeout(cartAnimationOut);
+      });
+    } else {
+      const cartNotification = document.querySelector(
+        ".nav__cart__notification"
+      );
+      cartNotification.classList.add("nav__cart__notification--display");
+
+      let optionProduct = {
+        nameProduct: articleData.name,
+        idProduct: articleData._id,
+        optionProduct: userSelectedValue,
+        quantity: 1,
+        price: articleData.price,
+      };
+      console.log(optionProduct);
+
+      // ************************************** //
+      // *********** LOCAL STORAGE ************ //
+      // ************************************** //
+      //
+
+      // convert localStorage data from JSON format => JavaScript Object
+      let productsStoredInLocalStorage = JSON.parse(
+        localStorage.getItem("toCartProduct")
+      );
+
+      const popupConfirm = () => {
+        if (
+          window.confirm(`${articleData.name} option: ${userSelectedValue} was successfully added to cart
+        Go to cart OK or keep shopping CANCEL`)
+        ) {
+          window.location.href = "cart.html";
+        } else {
+          window.location.href = "index.html";
+        }
+      };
+
+      const addProductToLocalStorage = () => {
+        // adding to array the object with values choosen by user
+        productsStoredInLocalStorage.push(optionProduct);
+        // convert from Javascript object => JSON format
+        // sending the "key" of "toCartProduct" => localStorage
+        localStorage.setItem(
+          "toCartProduct",
+          JSON.stringify(productsStoredInLocalStorage)
+        );
+      };
+
+      // if products are already stored in LocalStorage
+      if (productsStoredInLocalStorage) {
+        addProductToLocalStorage();
+        popupConfirm();
+      }
+      //
+      // if LocalStorage is empty
+      else {
+        productsStoredInLocalStorage = [];
+        addProductToLocalStorage();
+        popupConfirm();
+      }
+    }
+
+    // end of Event Listenner
+  });
 }

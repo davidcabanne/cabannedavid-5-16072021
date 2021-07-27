@@ -49,8 +49,7 @@
         </ul>
       </div>
         <div class="nav__cart">
-          <a href="index.html" class="nav__cart__link"> <i class="fas fa-shopping-cart nav__cart__icon"></i></a>
-          <!-- <div class="nav__cart__title">Panier</div> -->
+          <a href="index.html" class="nav__cart__link"> <i class="fas fa-shopping-cart nav__cart__icon"></i><div class="nav__cart__notification" ></div></a>
         </div>
       </nav>
       <div class="burger-wrapper">
@@ -65,6 +64,27 @@
     </header>
 
     <div class="section__menufix"></div>
+
+    <div id="cartError__section" class="cartError__section">
+      <div class="cartError__section__wrapper"> 
+        <div class="cartError__section__container">
+          <div class="cartError__section--icon"><i id="cartError__section--icon" class="fas fa-times"></i></div>
+          <div class="cartError__section--text"></div>
+        </div>
+        <div class="cartError__section__wrapper-bg"></div>
+      </div>
+    </div>
+<!-- 
+    <div id="cartSuccess__section" class="cartSuccess__section">
+      <div class="cartSuccess__section__container"> 
+        <div class="cartSuccess__section__wrapper">
+          <div class="cartSuccess__section--NameProduct"></div>
+          <div class="cartSuccess__section--OptionProduct"></div>
+          <div class="cartSuccess__section--textsuccess"></div>
+          <div class="cartSuccess__section--textdirection"></div>
+        </div>
+      </div>
+    </div> -->
 
     <section class="section__product-bg">
       <div class="article__image">
@@ -114,7 +134,7 @@
                   <select class="article__lens"></select>
                 </div>
                 <div class="article__button--container">
-                  <button class="article__cta__cart">+ Add to cart</button
+                  <button id="send-to-cart" class="article__cta__cart">+ Add to cart</button
                   >
                 </div>
               </div>
@@ -128,5 +148,7 @@
     <!-- Importing JS scripts -->
     <script src="./js/article.js" defer></script>
     <script src="./js/burger-menu.js" defer></script>
+    <script src="./js/product-page-animation.js" defer></script>
+
   </body>
 </html>
