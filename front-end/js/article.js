@@ -126,11 +126,10 @@ function displayArticle(articleData) {
       let optionProduct = {
         nameProduct: articleData.name,
         idProduct: articleData._id,
-        optionProduct: userSelectedValue,
+        optProduct: userSelectedValue,
         quantity: 1,
         price: articleData.price,
       };
-      // console.log(optionProduct);
 
       // ************************************** //
       // *********** LOCAL STORAGE ************ //
@@ -141,68 +140,63 @@ function displayArticle(articleData) {
       let productsStoredInLocalStorage = JSON.parse(
         localStorage.getItem("toCartProduct")
       );
-      // alternate popup Function
-      // const popupConfirm = () => {
-      //   if (
-      //     window.confirm(`${articleData.name} option: ${userSelectedValue} was successfully added to cart
-      //   Go to cart OK or keep shopping CANCEL`)
-      //   ) {
-      //     window.location.href = "cart.html";
-      //   } else {
-      //     window.location.href = "index.html";
-      //   }
-      // };
+
       function popupConfirm() {
         const cartSuccessSection = document.querySelector(
           ".cartSuccess__section"
         );
         cartSuccessSection.classList.add("cartSuccess__section--display");
-      }
 
-      const cartSuccessSectionContainer = document.querySelector(
-        ".cartSuccess__section__container"
-      );
-
-      const createNameProductDiv = document.createElement("div");
-      cartSuccessSectionContainer.appendChild(createNameProductDiv);
-      createNameProductDiv.classList.add("cartSuccess__section--productName");
-      createNameProductDiv.textContent = `${articleData.name}`;
-
-      const createOptProductDiv = document.createElement("div");
-      cartSuccessSectionContainer.appendChild(createOptProductDiv);
-      createOptProductDiv.classList.add("cartSuccess__section--productOpt");
-      createOptProductDiv.innerHTML = `Lens: <span class="cartSuccess__section--productOpt--link">${userSelectedValue}</span>`;
-
-      const createTextProductDiv = document.createElement("div");
-      cartSuccessSectionContainer.appendChild(createTextProductDiv);
-      createTextProductDiv.classList.add("cartSuccess__section--productText");
-      createTextProductDiv.textContent = `was successfully added to cart`;
-
-      const createExitProductDiv = document.createElement("div");
-      cartSuccessSectionContainer.appendChild(createExitProductDiv);
-      createExitProductDiv.classList.add("cartSuccess__section--productExit");
-      createExitProductDiv.innerHTML = `Go to <a class="cartSuccess__section--productExit--link" href="cart.html">cart</a> or <span class="cartSuccess__section--productExit--link cartSuccess__section--productExit--link__cta">keep shopping</span>`;
-
-      const exitCartPopup = document.querySelector(
-        ".cartSuccess__section--productExit--link__cta"
-      );
-      exitCartPopup.addEventListener("click", function () {
-        const cartSuccessSection = document.querySelector(
-          ".cartSuccess__section"
+        const cartSuccessSectionContainer = document.querySelector(
+          ".cartSuccess__section__container"
         );
 
-        cartSuccessSection.classList.add("cartSuccess__section--display--out");
+        const createNameProductDiv = document.createElement("div");
+        cartSuccessSectionContainer.appendChild(createNameProductDiv);
+        createNameProductDiv.classList.add("cartSuccess__section--productName");
+        createNameProductDiv.textContent = `${articleData.name}`;
 
-        function cartAnimationOut() {
-          cartSuccessSection.classList.remove("cartSuccess__section--display");
-          cartSuccessSection.classList.remove(
+        const createOptProductDiv = document.createElement("div");
+        cartSuccessSectionContainer.appendChild(createOptProductDiv);
+        createOptProductDiv.classList.add("cartSuccess__section--productOpt");
+        createOptProductDiv.innerHTML = `Lens option: <span class="cartSuccess__section--productOpt--link">${userSelectedValue}</span>`;
+
+        const createTextProductDiv = document.createElement("div");
+        cartSuccessSectionContainer.appendChild(createTextProductDiv);
+        createTextProductDiv.classList.add("cartSuccess__section--productText");
+        createTextProductDiv.textContent = `Your item was successfully added to cart`;
+
+        const createExitProductDiv = document.createElement("div");
+        cartSuccessSectionContainer.appendChild(createExitProductDiv);
+        createExitProductDiv.classList.add("cartSuccess__section--productExit");
+        createExitProductDiv.innerHTML = `Go to <a class="cartSuccess__section--productExit--link" href="cart.html">cart</a> or <span class="cartSuccess__section--productExit--link cartSuccess__section--productExit--link__cta">keep shopping</span>`;
+
+        const exitCartPopup = document.querySelector(
+          ".cartSuccess__section--productExit--link__cta"
+        );
+        exitCartPopup.addEventListener("click", function () {
+          const cartSuccessSection = document.querySelector(
+            ".cartSuccess__section"
+          );
+
+          cartSuccessSection.classList.add(
             "cartSuccess__section--display--out"
           );
-        }
 
-        setTimeout(cartAnimationOut, 500);
-        // clearTimeout(cartAnimationOut);
-      });
+          function cartAnimationOut() {
+            cartSuccessSection.classList.remove(
+              "cartSuccess__section--display"
+            );
+            cartSuccessSection.classList.remove(
+              "cartSuccess__section--display--out"
+            );
+            cartSuccessSectionContainer.innerHTML = "";
+          }
+
+          setTimeout(cartAnimationOut, 500);
+          // clearTimeout(cartAnimationOut);
+        });
+      }
 
       const addProductToLocalStorage = () => {
         // adding to array the object with values choosen by user
@@ -219,6 +213,7 @@ function displayArticle(articleData) {
       if (productsStoredInLocalStorage) {
         addProductToLocalStorage();
         popupConfirm();
+        console.log(productsStoredInLocalStorage);
       }
       //
       // if LocalStorage is empty
@@ -228,7 +223,6 @@ function displayArticle(articleData) {
         popupConfirm();
       }
     }
-
     // end of Event Listenner
   });
 }
