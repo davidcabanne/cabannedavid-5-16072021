@@ -933,7 +933,7 @@ li a:hover {
   }
 
   .cartSuccess__section--productName {
-    font-size: 50px;
+    font-size: 60px;
   }
   .cartSuccess__section--productOpt {
     font-size: 25px;
@@ -1038,6 +1038,9 @@ li a:hover {
     position: relative;
     width: 80vw;
     height: auto;
+  }
+  .cartSuccess__section--productName {
+    font-size: 50px;
   }
 }
 @media screen and (min-width: 1023px) {

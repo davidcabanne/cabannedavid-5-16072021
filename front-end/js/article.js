@@ -30,6 +30,33 @@ function getArticleData(articleId) {
   );
 }
 
+function cartError() {
+  let cartErrorContainerClose = document.getElementById(
+    "cartError__section--icon"
+  );
+  let cartErrorContainer = document.querySelector(".cartError__section");
+  let cartErrorContainerText = document.querySelector(
+    ".cartError__section--text"
+  );
+
+  cartErrorContainerText.innerHTML =
+    "Please choose a lens before proceeding to checkout!";
+
+  cartErrorContainer.classList.add("cartError__section--display");
+
+  cartErrorContainerClose.addEventListener("click", function () {
+    cartErrorContainer.classList.add("cartError__section--display--out");
+
+    function cartAnimationOut() {
+      cartErrorContainer.classList.remove("cartError__section--display");
+      cartErrorContainer.classList.remove("cartError__section--display--out");
+    }
+
+    setTimeout(cartAnimationOut, 500);
+    // clearTimeout(cartAnimationOut);
+  });
+}
+
 function displayArticle(articleData) {
   //fetching & displaying <img> of Article
   let imgArticle = articleData.imageUrl;
@@ -41,9 +68,6 @@ function displayArticle(articleData) {
   document.getElementById("article__name").textContent = articleData.name;
 
   // fetching & displaying <price> of Article
-  // document.getElementById("article__price").textContent = `${
-  //   articleData.price / 100
-  // }.00 €`;
   articleData.price = articleData.price / 100;
   document.getElementById("article__price").innerHTML = new Intl.NumberFormat(
     "fr-FR",
@@ -91,33 +115,9 @@ function displayArticle(articleData) {
     const userSelectedValue = selectLensId.value;
 
     if (userSelectedValue === "Please choose a lens") {
-      let cartErrorContainerClose = document.getElementById(
-        "cartError__section--icon"
-      );
-      let cartErrorContainer = document.querySelector(".cartError__section");
-      let cartErrorContainerText = document.querySelector(
-        ".cartError__section--text"
-      );
-
-      cartErrorContainerText.innerHTML =
-        "Please choose a lens before proceeding to checkout!";
-
-      cartErrorContainer.classList.add("cartError__section--display");
-
-      cartErrorContainerClose.addEventListener("click", function () {
-        cartErrorContainer.classList.add("cartError__section--display--out");
-
-        function cartAnimationOut() {
-          cartErrorContainer.classList.remove("cartError__section--display");
-          cartErrorContainer.classList.remove(
-            "cartError__section--display--out"
-          );
-        }
-
-        setTimeout(cartAnimationOut, 500);
-        // clearTimeout(cartAnimationOut);
-      });
+      cartError();
     } else {
+      // cart notification
       const cartNotification = document.querySelector(
         ".nav__cart__notification"
       );
@@ -142,6 +142,7 @@ function displayArticle(articleData) {
       );
 
       function popupConfirm() {
+        // grabbing the section & adding a class "cartSuccess__section--display" => toggles animation "successIn"
         const cartSuccessSection = document.querySelector(
           ".cartSuccess__section"
         );
