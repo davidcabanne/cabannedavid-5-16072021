@@ -1,229 +1,182 @@
 (async function () {
-  const articleId = getArticleId();
-  const articleData = await getArticleData(articleId);
-  displayArticle(articleData);
+  updateCartNotification();
+
+  const url = new URL(location.href);
+  const articleId = url.searchParams.get("id");
+
+  try {
+    const article = await fetchArticle(articleId);
+    updateArticle(article);
+  } catch (err) {
+    console.error(err);
+
+    // In case of API error, display an error message
+    const container = document.querySelector(".section__dyn");
+    container.classList.add("fetching__error");
+    container.innerHTML =
+      "An error has occurred, we couldn't display our goods.<br>Please start the local server (port 3000).<br>If the problem doesn't go away, please contact us!";
+  }
 })();
 
-function getArticleId() {
-  return new URL(location.href).searchParams.get("id");
-}
+// Renders and article object to a DOM node
+function updateArticle(article) {
+  const img = document.querySelector(".article__image--custom");
+  img.setAttribute("src", article.imageUrl);
 
-function getArticleData(articleId) {
-  // fetch the API url
-  return (
-    fetch(`http://localhost:3000/api/cameras/${articleId}`)
-      // translating data into a json file
-      .then(function (httpBodyResponse) {
-        return httpBodyResponse.json();
-      })
-      // using data from the 1st then to return the articles
-      .then(function (article) {
-        return article;
-      })
-      // if error => catch
-      .catch(function (error) {
-        let articlesContainer = document.querySelector(".section__dyn");
-        articlesContainer.classList.add("fetching__error");
-        articlesContainer.innerHTML =
-          "An error has occurred, we couldn't display our goods.<br>Please start the local server (port 3000).<br>If the problem doesn't go away, please contact us!";
-      })
-  );
-}
+  const name = document.getElementById("article__name");
+  name.textContent = article.name;
 
-function cartError() {
-  let cartErrorContainerClose = document.getElementById(
-    "cartError__section--icon"
-  );
-  let cartErrorContainer = document.querySelector(".cartError__section");
-  let cartErrorContainerText = document.querySelector(
-    ".cartError__section--text"
-  );
+  const currencyFormatter = new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+  });
 
-  cartErrorContainerText.innerHTML =
-    "Please choose a lens before proceeding to checkout!";
+  const price = document.getElementById("article__price");
+  price.innerHTML = currencyFormatter.format(article.price / 100);
 
-  cartErrorContainer.classList.add("cartError__section--display");
+  const description = document.getElementById("article__description");
+  description.textContent = article.description;
 
-  cartErrorContainerClose.addEventListener("click", function () {
-    cartErrorContainer.classList.add("cartError__section--display--out");
+  // <Lenses options>
+  const lenses = document.querySelector(".article__lens");
 
-    function cartAnimationOut() {
-      cartErrorContainer.classList.remove("cartError__section--display");
-      cartErrorContainer.classList.remove("cartError__section--display--out");
-    }
+  // creates a defaultOption for the lenses' select > option
+  const defaultOption = renderOption("empty", "Please choose a lens");
+  lenses.appendChild(defaultOption);
 
-    setTimeout(cartAnimationOut, 500);
-    // clearTimeout(cartAnimationOut);
+  // Loop: for each lens of article.lesens
+  article.lenses.forEach(function (value, index) {
+    // = > render the option through func renderOption
+    const option = renderOption(index, value);
+    // = > create an <option>
+    lenses.appendChild(option);
+  });
+
+  const button = document.querySelector("#send-to-cart");
+
+  button.addEventListener("click", function (e) {
+    handleAddToCart(e, article);
   });
 }
 
-function displayArticle(articleData) {
-  //fetching & displaying <img> of Article
-  let imgArticle = articleData.imageUrl;
-  document
-    .querySelector(".article__image--custom")
-    .setAttribute("src", imgArticle);
+function handleAddToCart(e, article) {
+  const lenses = document.querySelector(".article__lens");
 
-  // fetching & displaying <name> of Article
-  document.getElementById("article__name").textContent = articleData.name;
-
-  // fetching & displaying <price> of Article
-  articleData.price = articleData.price / 100;
-  document.getElementById("article__price").innerHTML = new Intl.NumberFormat(
-    "fr-FR",
-    {
-      style: "currency",
-      currency: "EUR",
-    }
-  ).format(articleData.price);
-
-  // fetching & displaying <description> of Article
-  document.getElementById("article__description").textContent =
-    articleData.description;
-
-  // fetching & displaying <lens> of Article
-  let i = 0;
-  let select = document.querySelector(".article__lens");
-
-  // Default lens opt
-  let optionDefault = document.createElement("option");
-  optionDefault.innerHTML = `Please choose a lens`;
-  select.appendChild(optionDefault);
-
-  for (lens of articleData.lenses) {
-    let option = document.createElement("option");
-    option.classList.add("article__lens__option");
-    option.setAttribute("value", lens);
-    // option.setAttribute("value", i);
-    option.innerHTML = lens;
-    select.appendChild(option);
-    i++;
+  if (lenses.value == "empty") {
+    const error = renderError(
+      "Please choose a lens before proceeding to checkout!"
+    );
+    const notifications = document.querySelector(".notifications");
+    notifications.innerHTML = "";
+    notifications.appendChild(error);
+    return;
   }
 
-  // ************************************** //
-  // ******** Cart functionalities ******** //
-  // ************************************** //
-  //
-  // fetching datas selected by the user & sending to cart
+  lensOption = article.lenses[lenses.value];
 
-  const selectLensId = document.querySelector(".article__lens");
-  const btnSendToCart = document.querySelector("#send-to-cart");
+  let entry = {
+    articleId: article._id,
+    articleName: article.name,
+    articlePrice: article.price,
+    lensOption: lensOption,
+    quantity: 1,
+  };
 
-  btnSendToCart.addEventListener("click", (e) => {
-    e.preventDefault();
+  addToCart(entry);
+  updateCartNotification();
 
-    const userSelectedValue = selectLensId.value;
+  const confirm = renderConfirm(entry);
+  const notifications = document.querySelector(".notifications");
+  notifications.innerHTML = "";
+  notifications.appendChild(confirm);
+}
 
-    if (userSelectedValue === "Please choose a lens") {
-      cartError();
-    } else {
-      // cart notification
-      const cartNotification = document.querySelector(
-        ".nav__cart__notification"
-      );
-      cartNotification.classList.add("nav__cart__notification--display");
+// Add an entry to the localStorage shopping cart
+function addToCart(entry) {
+  let cart = JSON.parse(localStorage.getItem("cart"));
+  if (cart === null) {
+    cart = [];
+  }
 
-      let optionProduct = {
-        nameProduct: articleData.name,
-        idProduct: articleData._id,
-        optProduct: userSelectedValue,
-        quantity: 1,
-        price: articleData.price,
-      };
+  cart.push(entry);
 
-      // ************************************** //
-      // *********** LOCAL STORAGE ************ //
-      // ************************************** //
-      //
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
 
-      // convert localStorage data from JSON format => JavaScript Object
-      let productsStoredInLocalStorage = JSON.parse(
-        localStorage.getItem("toCartProduct")
-      );
+// Renders a value and a string to an option node
+function renderOption(value, text) {
+  const option = document.createElement("option");
+  option.setAttribute("value", value);
+  option.innerHTML = text;
 
-      function popupConfirm() {
-        // grabbing the section & adding a class "cartSuccess__section--display" => toggles animation "successIn"
-        const cartSuccessSection = document.querySelector(
-          ".cartSuccess__section"
-        );
-        cartSuccessSection.classList.add("cartSuccess__section--display");
+  return option;
+}
 
-        const cartSuccessSectionContainer = document.querySelector(
-          ".cartSuccess__section__container"
-        );
+function renderConfirm(entry) {
+  const template = document.getElementById("templateConfirm");
+  const node = document.importNode(template.content, true);
 
-        const createNameProductDiv = document.createElement("div");
-        cartSuccessSectionContainer.appendChild(createNameProductDiv);
-        createNameProductDiv.classList.add("cartSuccess__section--productName");
-        createNameProductDiv.textContent = `${articleData.name}`;
+  const section = node.querySelector(".cartSuccess__section");
+  const sectionContainer = node.querySelector(
+    ".cartSuccess__section__container"
+  );
+  const articleName = node.querySelector(".cartSuccess__section--productName");
+  const lensOption = node.querySelector(".cartSuccess__section--productOpt");
+  const confirmMessage = node.querySelector(
+    ".cartSuccess__section--productText"
+  );
+  const close = node.querySelector(
+    ".cartSuccess__section--productExit--link__cta"
+  );
 
-        const createOptProductDiv = document.createElement("div");
-        cartSuccessSectionContainer.appendChild(createOptProductDiv);
-        createOptProductDiv.classList.add("cartSuccess__section--productOpt");
-        createOptProductDiv.innerHTML = `Lens option: <span class="cartSuccess__section--productOpt--link">${userSelectedValue}</span>`;
+  articleName.classList.add("cartSuccess__section--productName");
+  articleName.textContent = `${entry.articleName}`;
 
-        const createTextProductDiv = document.createElement("div");
-        cartSuccessSectionContainer.appendChild(createTextProductDiv);
-        createTextProductDiv.classList.add("cartSuccess__section--productText");
-        createTextProductDiv.textContent = `Your item was successfully added to cart`;
+  lensOption.classList.add("cartSuccess__section--productOpt");
+  lensOption.innerHTML = `Lens option: <span class="cartSuccess__section--productOpt--link">${entry.lensOption}</span>`;
 
-        const createExitProductDiv = document.createElement("div");
-        cartSuccessSectionContainer.appendChild(createExitProductDiv);
-        createExitProductDiv.classList.add("cartSuccess__section--productExit");
-        createExitProductDiv.innerHTML = `Go to <a class="cartSuccess__section--productExit--link" href="cart.html">cart</a> or <span class="cartSuccess__section--productExit--link cartSuccess__section--productExit--link__cta">keep shopping</span>`;
+  confirmMessage.classList.add("cartSuccess__section--productText");
+  confirmMessage.textContent = `Your item was successfully added to cart`;
 
-        const exitCartPopup = document.querySelector(
-          ".cartSuccess__section--productExit--link__cta"
-        );
-        exitCartPopup.addEventListener("click", function () {
-          const cartSuccessSection = document.querySelector(
-            ".cartSuccess__section"
-          );
+  close.addEventListener("click", handleCloseConfirm);
 
-          cartSuccessSection.classList.add(
-            "cartSuccess__section--display--out"
-          );
+  return node;
+}
 
-          function cartAnimationOut() {
-            cartSuccessSection.classList.remove(
-              "cartSuccess__section--display"
-            );
-            cartSuccessSection.classList.remove(
-              "cartSuccess__section--display--out"
-            );
-            cartSuccessSectionContainer.innerHTML = "";
-          }
+function renderError(error) {
+  const template = document.getElementById("templateError");
+  const node = document.importNode(template.content, true);
 
-          setTimeout(cartAnimationOut, 500);
-          // clearTimeout(cartAnimationOut);
-        });
-      }
+  const close = node.getElementById("cartError__section--icon");
+  const text = node.querySelector(".cartError__section--text");
 
-      const addProductToLocalStorage = () => {
-        // adding to array the object with values choosen by user
-        productsStoredInLocalStorage.push(optionProduct);
-        // convert from Javascript object => JSON format
-        // sending the "key" of "toCartProduct" => localStorage
-        localStorage.setItem(
-          "toCartProduct",
-          JSON.stringify(productsStoredInLocalStorage)
-        );
-      };
+  text.innerHTML = error;
 
-      // if products are already stored in LocalStorage
-      if (productsStoredInLocalStorage) {
-        addProductToLocalStorage();
-        popupConfirm();
-        console.log(productsStoredInLocalStorage);
-      }
-      //
-      // if LocalStorage is empty
-      else {
-        productsStoredInLocalStorage = [];
-        addProductToLocalStorage();
-        popupConfirm();
-      }
-    }
-    // end of Event Listenner
-  });
+  close.addEventListener("click", handleCloseError);
+
+  return node;
+}
+
+function handleCloseConfirm(e) {
+  console.log("handleCloseConfirm");
+
+  const section = document.querySelector(".cartSuccess__section");
+
+  section.classList.add("cartSuccess__section--display--out");
+
+  setTimeout(function () {
+    section.classList.remove("cartSuccess__section--display");
+    section.classList.remove("cartSuccess__section--display--out");
+  }, 500);
+}
+
+function handleCloseError(e) {
+  const container = document.querySelector(".cartError__section");
+
+  container.classList.add("cartError__section--display--out");
+
+  setTimeout(function () {
+    container.classList.remove("cartError__section--display");
+    container.classList.remove("cartError__section--display--out");
+  }, 500);
 }

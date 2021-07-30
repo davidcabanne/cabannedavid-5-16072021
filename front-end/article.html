@@ -65,29 +65,33 @@
 
     <div class="section__menufix"></div>
 
-    <div id="cartError__section" class="cartError__section">
-      <div class="cartError__section__wrapper"> 
-        <div class="cartError__section__container">
-          <div class="cartError__section--icon"><i id="cartError__section--icon" class="fas fa-times"></i></div>
-          <div class="cartError__section--text"></div>
+    <template id="templateError">
+      <div id="cartError__section" class="cartError__section cartError__section--display">
+        <div class="cartError__section__wrapper"> 
+          <div class="cartError__section__container">
+            <div class="cartError__section--icon"><i id="cartError__section--icon" class="fas fa-times"></i></div>
+            <div class="cartError__section--text"></div>
+          </div>
+          <div class="cartError__section__wrapper-bg"></div>
         </div>
-        <div class="cartError__section__wrapper-bg"></div>
       </div>
-    </div>
+    </template>
 
-    <div id="cartSuccess__section" class="cartSuccess__section">
-      <div class="cartSuccess__section__wrapper"> 
-        <div id="cartSuccess__section__container" class="cartSuccess__section__container">
-          <template id="template__cartSuccess">
+    <template id="templateConfirm">
+      <div id="cartSuccess__section" class="cartSuccess__section cartSuccess__section--display">
+        <div class="cartSuccess__section__wrapper"> 
+          <div id="cartSuccess__section__container" class="cartSuccess__section__container">
             <div id="cartSuccess__section--productName" class="cartSuccess__section--productName"></div>
             <div id="cartSuccess__section--productOpt" class="cartSuccess__section--productOpt"></div>
             <div id="cartSuccess__section--productText" class="cartSuccess__section--productText"></div>
-            <div id="cartSuccess__section--productExit" class="cartSuccess__section--productExit"></div>
-          </template>
+            <div id="cartSuccess__section--productExit" class="cartSuccess__section--productExit">
+              Go to <a class="cartSuccess__section--productExit--link" href="cart.html">cart</a> or <span class="cartSuccess__section--productExit--link cartSuccess__section--productExit--link__cta">keep shopping</span>
+            </div>
+          </div>
+          <div class="cartSuccess__section__wrapper-bg"></div>
         </div>
-        <div class="cartSuccess__section__wrapper-bg"></div>
       </div>
-    </div>
+    </template>
 
     <section class="section__product-bg">
       <div class="article__image">
@@ -147,8 +151,13 @@
     </section>
     <!-- dyn JavaScript ends here -->
 
+    <div class="notifications">
+
+    </div>
+
     <footer></footer>
     <!-- Importing JS scripts -->
+    <script src="./js/common.js" defer></script>
     <script src="./js/article.js" defer></script>
     <script src="./js/burger-menu.js" defer></script>
     <script src="./js/product-page-animation.js" defer></script>
