@@ -404,6 +404,10 @@ main {
   height: 300px;
   width: 100%;
   overflow: hidden;
+  transition: opacity 0.3s ease-in-out;
+}
+.article__image:hover {
+  opacity: 0.75;
 }
 .article__image::after {
   content: "";

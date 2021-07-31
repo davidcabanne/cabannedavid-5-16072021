@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/article.css" />
+    <link rel="stylesheet" href="./styles/cart.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -65,32 +65,6 @@
 
     <div class="section__menufix"></div>
 
-    <div id="cartError__section" class="cartError__section">
-      <div class="cartError__section__wrapper"> 
-        <div class="cartError__section__container">
-          <div class="cartError__section--icon"><i id="cartError__section--icon" class="fas fa-times"></i></div>
-          <div class="cartError__section--text"></div>
-        </div>
-        <div class="cartError__section__wrapper-bg"></div>
-      </div>
-    </div>
-
-    <div id="cartSuccess__section" class="cartSuccess__section">
-      <div class="cartSuccess__section__wrapper"> 
-        <div class="cartSuccess__section__container">
-         <!-- dynamic js content -->
-        </div>
-        <div class="cartSuccess__section__wrapper-bg"></div>
-      </div>
-    </div>
-
-    <!-- <section class="section__product-bg">
-      <div class="article__image">
-        <div class="article__image--result">
-          <img class="article__image--custom" alt="appareil photo" />
-        </div>
-      </div>
-    </section> -->
 
     <section class="section__backlink">
       <div class="section__backlink--wrapper">
@@ -102,51 +76,27 @@
           >back</a
         >
       </div>
-      <div class="article__preview--button--container__anim">
-        <div class="article__preview--button--container">
-          <button class="article__preview--button"
-            ><i
-              class="fas fa-chevron-down article__preview--icon"
-            ></i
-            ></button
-          >
-        </div>
-      </div>
     </div>
     </div>
     </section>
 
     <!-- dyn JavaScript starts here -->
-    <!-- <section class="section__dyn" id="section__dyn">
-      <div id="section__dyn--wrapper" class="section__dyn--wrapper">
-          
-          <div class="article__info--container">
-            <div class="article__info--align">
-              <h2 id="article__name" class="article__name"></h2>
-              <h2 id="article__price" class="article__price"></h2>
-            </div>
-            <p id="article__description" class="article__description"></p>
-            <div>
-              <div class="article__footer">
-                <div class="article__lens--container">
-                  <select class="article__lens"></select>
-                </div>
-                <div class="article__button--container">
-                  <button id="send-to-cart" class="article__cta__cart">+ Add to cart</button
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
+
+    <section class="section__cartPage" id="section__cartPage">
+      <div id="section__cartPage--wrapper" class="section__cartPage--wrapper">
+        <div class="cartPage__title--container">
+          <div class="cartPage__title">In your bag:</div><div class="cartPage__NbrOfItem">2 items</div>  
+        </div>
+
       </div>
-    </section> -->
+    </section>
+  
     <!-- dyn JavaScript ends here -->
 
     <footer></footer>
     <!-- Importing JS scripts -->
     <script src="./js/cart.js" defer></script>
     <script src="./js/burger-menu.js" defer></script>
-    <script src="./js/product-page-animation.js" defer></script>
 
   </body>
 </html>

@@ -79,6 +79,7 @@ function handleAddToCart(e, article) {
     articleName: article.name,
     articlePrice: article.price,
     lensOption: lensOption,
+    articleImg: article.imageUrl,
     quantity: 1,
   };
 

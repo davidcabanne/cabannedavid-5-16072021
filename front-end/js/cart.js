@@ -1,7 +1,10 @@
-// convert localStorage data from JSON format => JavaScript Object
-let productsStoredInLocalStorage = JSON.parse(
-  localStorage.getItem("toCartProduct")
-);
+let cart = JSON.parse(localStorage.getItem("cart"));
+console.log(cart);
 
-lastItem =
-  productsStoredInLocalStorage[productsStoredInLocalStorage.length - 1];
+if (cart === null) {
+  // cart = [];
+  console.log("the cart is empty");
+}
+if (cart.length > 0) {
+  console.log("the cart is full");
+}
