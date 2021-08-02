@@ -23,8 +23,12 @@ function updateCartNotification() {
     cart = [];
   }
 
+  const notification = document.querySelector(".nav__cart__notification");
+  if (cart.length === 0) {
+    notification.classList.remove("nav__cart__notification--display");
+  }
+
   if (cart.length > 0) {
-    const notification = document.querySelector(".nav__cart__notification");
     notification.classList.add("nav__cart__notification--display");
   }
 }

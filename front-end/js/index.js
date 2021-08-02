@@ -1,3 +1,5 @@
+let cart = JSON.parse(localStorage.getItem("cart"));
+
 // IIFE function ( (Immediately Invoked Function Expression))
 // = > self-executing Anonymous function (doesn't have name / calls itself up)
 

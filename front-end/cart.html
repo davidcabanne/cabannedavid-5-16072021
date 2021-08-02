@@ -80,21 +80,83 @@
     </div>
     </section>
 
+
     <!-- dyn JavaScript starts here -->
 
     <section class="section__cartPage" id="section__cartPage">
-      <div id="section__cartPage--wrapper" class="section__cartPage--wrapper">
-        <div class="cartPage__title--container">
-          <div class="cartPage__title">In your bag:</div><div class="cartPage__NbrOfItem">2 items</div>  
-        </div>
+        <!-- <template> -->
+          <div id="section__cartPage--wrapper" class="section__cartPage--wrapper">
+            <div class="cartPage__title--container">
+              <div class="cartPage__title">In your bag:</div><div class="cartPage__NbrOfItem"></div>  
+            </div>
 
-      </div>
+            <div class="emptyCartNotificationContainer"></div>
+
+            <div id="section__cartPage--templateContainer">
+            <!-- cart  -->
+            </div>
+
+            <div>
+            <div class="cartPage__totalCheckout--container">
+              <div class="cartPage__totalCheckout--total">Total:</div>
+              <div class="cartPage__totalCheckout--price">1.600.00 €</div>
+            </div>
+            <div class="cartPage__btn--container">
+              <a href="index.html" class="cartPage__btn--ks-link">
+                <div class="cartPage__btn--ks">
+                  <div>KEEP SHOPPING</div>
+                </div>
+              </a>
+              <a href="#" class="cartPage__btn--checkout-link">
+                <div class="cartPage__btn--checkout">
+                  <div>CHECKOUT <i class="fas fa-chevron-right cartPage__btn--checkout--icon"></i></div>
+                </div>
+              </a>
+            </div>
+            <div class="cartPage__clearCartContainer">
+              <div class="cartPage__btn--cleartCart">
+                <div class="cartPage__btn--cleartCart--text"><i class="far fa-trash-alt cartPage__btn--cleartCart--icon"></i>Clear cart</div>
+              </div>
+            </div>
+          </div>
+          </div>
+        <!-- </template> -->
     </section>
+
+    <template id="Template__cartItem" class="Template__cartItem">
+
+      <div class="cartItem__container">
+        <div class="cartItem__img">
+          <img>
+        </div>
+        <div class="cartItem__section-wrapper">
+          <div class="cartItem__header">
+            <div class="cartItem__name"></div>
+            <div class="cartItem__section-right">
+              <div class="cartItem__qty--wrapper">
+                <div class="cartItem__qty--text">Qty:</div>
+                <select class="cartItem__qty--select"></select>
+              </div>
+              <div class="cartItem__price"></div>
+            </div>
+          </div>
+          <div class="cartItem__footer">
+            <div class="cartItem__option">
+              <div class="cartItem__option--text">Lens:</div>
+              <div class="cartItem__option--selectOpt"></div>
+            </div>
+            <button class="cartItem__btn--remove">Remove</button>
+          </div>
+        </div>
+      </div>
+
+    </template>
   
     <!-- dyn JavaScript ends here -->
 
     <footer></footer>
     <!-- Importing JS scripts -->
+    <script src="./js/common.js" defer></script>
     <script src="./js/cart.js" defer></script>
     <script src="./js/burger-menu.js" defer></script>
 
