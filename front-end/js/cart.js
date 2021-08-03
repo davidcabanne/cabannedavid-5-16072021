@@ -5,8 +5,14 @@
 
 function displayCart() {
   let cart = JSON.parse(localStorage.getItem("cart"));
+  const totalPriceContainer = document.querySelector(
+    ".cartPage__totalCheckout--price"
+  );
+
   if (cart === null) {
     cart = [];
+
+    totalPriceContainer.innerHTML = "0 €";
   }
 
   const cartTemplateContainer = document.getElementById(
@@ -23,18 +29,36 @@ function displayCart() {
     console.log("the cart is empty");
 
     renderEmptyBagNotification();
+
+    totalPriceContainer.innerHTML = "0 €";
   }
 
   if (cart.length > 0) {
     // console.log(cart);
     console.log("the cart has some items");
 
+    const totalPricesArray = [];
+
     for (let i = 0; i < cart.length; i++) {
       const cartItem = cart[i];
 
       const cartItemNode = renderItem(cartItem, cart, i);
       cartTemplateContainer.appendChild(cartItemNode);
+
+      const cartPrices = cart[i].articlePrice;
+      totalPricesArray.push(cartPrices);
     }
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const totalPrice = totalPricesArray.reduce(reducer, 0);
+    console.log(totalPrice);
+
+    const currencyFormatter = new Intl.NumberFormat("fr-FR", {
+      style: "currency",
+      currency: "EUR",
+    });
+
+    totalPriceContainer.innerHTML = currencyFormatter.format(totalPrice / 100);
   }
 }
 
