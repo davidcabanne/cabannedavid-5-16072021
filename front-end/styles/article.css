@@ -19,6 +19,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+*:focus {
+  outline: none;
+  opacity: 0.5;
+}
+
 a {
   text-decoration: none;
 }
@@ -722,7 +728,6 @@ li a:hover {
   color: var(--whites);
   cursor: pointer;
   /* -webkit-appearance: none; */
-  border: none;
 }
 
 .article__button--container {

@@ -41,7 +41,7 @@ function updateArticle(article) {
   const lenses = document.querySelector(".article__lens");
 
   // creates a defaultOption for the lenses' select > option
-  const defaultOption = renderOption("empty", "Please choose a lens");
+  const defaultOption = renderOption("empty", "Available lenses");
   lenses.appendChild(defaultOption);
 
   // Loop: for each lens of article.lesens
