@@ -10,6 +10,9 @@ function displayCart() {
     ".cartPage__totalCheckout--price"
   );
 
+  // disable <checkout> if cart is empty
+  disableCheckout(cart);
+
   if (cart === null) {
     cart = [];
 
@@ -45,7 +48,6 @@ function displayCart() {
       cartTemplateContainer.appendChild(cartItemNode);
 
       const cartPrices = cart[i].articlePrice * cart[i].quantity;
-      // console.log(cartPrices);
 
       totalPricesArray.push(cartPrices);
     }
@@ -62,14 +64,11 @@ function cartBagItems(cart) {
   for (let i = 0; i < cart.length; i++) {
     let itemsQties = cart[i].quantity;
     itemsQties = parseInt(itemsQties, 10);
-    console.log(itemsQties);
 
     totalQtyArray.push(itemsQties);
-    console.log(totalQtyArray);
   }
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   const totalItemsReduced = totalQtyArray.reduce(reducer, 0);
-  console.log(totalItemsReduced);
 
   // front-end implementation
   if (totalItemsReduced === 0) {
@@ -91,6 +90,9 @@ function renderEmptyBagNotification() {
   createDiv = document.createElement("div");
   emptyCartNotificationContainer.appendChild(createDiv);
   createDiv.classList.add("emptyCartNotification__content");
+  emptyCartNotificationContainer.classList.remove(
+    "emptyCartNotificationContainer--disabled"
+  );
   createDiv.innerText = "It looks like your bag is empty!";
 }
 
@@ -148,7 +150,7 @@ function renderItem(cartItem, cart, index) {
   const clearCartBtn = document.querySelector(".cartPage__btn--cleartCart");
 
   clearCartBtn.addEventListener("click", function (e) {
-    handleClearCartCta(e, cart);
+    handleClearCartCta(e);
   });
 
   return node;
@@ -202,6 +204,7 @@ function handleQtyCart(e, cart, cartItemQtyContainer) {
   const qtyIndex = e.target.dataset.indexNumber;
 
   changeItemQuantity(qtyIndex, cartItemQtyContainer);
+  disableCheckout();
   displayCart();
 
   return;
@@ -218,7 +221,7 @@ function changeItemQuantity(qtyIndex, cartItemQtyContainer) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function handleClearCartCta(e, cart) {
+function handleClearCartCta(e) {
   e.preventDefault();
 
   cart = [];
@@ -228,4 +231,25 @@ function handleClearCartCta(e, cart) {
   displayCart();
 
   return;
+}
+
+function disableCheckout() {
+  let cart = JSON.parse(localStorage.getItem("cart"));
+
+  const btnCheckoutLink = document.querySelector(
+    ".cartPage__btn--checkout-link"
+  );
+  const btnCheckoutContainer = document.querySelector(
+    ".cartPage__btn--checkout"
+  );
+
+  if (cart.length === 0) {
+    btnCheckoutLink.classList.remove("cartPage__btn--checkout-link--enabled");
+    btnCheckoutContainer.classList.remove("cartPage__btn--checkout--enabled");
+  }
+
+  if (cart.length > 0) {
+    btnCheckoutLink.classList.add("cartPage__btn--checkout-link--enabled");
+    btnCheckoutContainer.classList.add("cartPage__btn--checkout--enabled");
+  }
 }

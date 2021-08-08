@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/checkout.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Cam&ras</title>
+  </head>
+  <body>
+    <div class="animation__container">
+      <div class="animation__group">
+        <img
+          src="./img/logo-cameras-by-orinoco.svg"
+          alt="logo"
+          class="animation__logo-img"
+        />
+      </div>
+    </div>
+
+    <header>
+      <nav>
+        <div class="nav__logo">
+          <a href="index.html">
+            <img
+              src="./img/logo-cameras-by-orinoco.svg"
+              alt="logo"
+              class="nav__logo-svg"
+            />
+          </a>
+        </div>
+        <div class="nav-container">
+          <ul>
+            <li class="nav__link"><a href="index.html">Home</a></li>
+            <li class="nav__link"><a href="#">About</a></li>
+            <li class="nav__link"><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="nav__cart">
+          <a href="cart.html" class="nav__cart__link">
+            <i class="fas fa-shopping-cart nav__cart__icon"></i>
+            <div class="nav__cart__notification"></div
+          ></a>
+        </div>
+      </nav>
+      <div class="burger-wrapper">
+        <div class="burger-container">
+          <div class="burger">
+            <span class="line1"></span>
+            <span class="line2"></span>
+            <span class="line3"></span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="section__menufix"></div>
+
+    <!-- <section class="section__backlink">
+      <div class="section__backlink--wrapper">
+      <div class="article__backlink--container">
+        <a href="index.html" class="article__backlink"
+          ><i
+            class="fas fa-chevron-left article__backlink--icon"
+          ></i
+          >back</a
+        >
+      </div>
+    </div>
+    </div>
+    </section> -->
+
+    <!-- dyn JavaScript starts here -->
+
+    <section class="section__checkoutForm">
+      <div class="section__checkoutForm--wrapper">
+        <div class="section__checkoutForm--container">
+          <div class="section__checkoutForm--title">Billing info</div>
+          <form action="#" class="checkoutForm">
+            <!-- input -->
+            <div class="checkoutForm__header">
+              <label for="firstName" class="checkoutForm__input-txt"
+                >First Name</label
+              >
+              <span class="requiredInfo__firstName requiredInfo"></span>
+            </div>
+            <input
+              type="text"
+              name="firstName"
+              id="inputFirstName"
+              class="inputFirstName checkoutForm__input"
+              required
+            />
+            <!-- input -->
+            <div class="checkoutForm__header">
+              <label for="lastName" class="checkoutForm__input-txt"
+                >Last Name</label
+              >
+              <span class="requiredInfo__lastName requiredInfo"></span>
+            </div>
+            <input
+              type="text"
+              name="lastName"
+              id="inputLastName"
+              class="inputLastName checkoutForm__input"
+              required
+            />
+            <!-- input -->
+            <div class="checkoutForm__header">
+              <label for="address" class="checkoutForm__input-txt"
+                >Address</label
+              >
+              <span class="requiredInfo__address requiredInfo"></span>
+            </div>
+            <input
+              type="text"
+              name="address"
+              id="inputAddress"
+              class="inputAddress checkoutForm__input"
+              required
+            />
+            <!-- input -->
+            <div class="checkoutForm__header">
+              <label for="city" class="checkoutForm__input-txt">City</label>
+              <span class="requiredInfo__city requiredInfo"></span>
+            </div>
+            <input
+              type="text"
+              name="city"
+              id="inputCity"
+              class="inputCity checkoutForm__input"
+              required
+            />
+            <!-- input -->
+            <div class="checkoutForm__header">
+              <label for="email" class="checkoutForm__input-txt">Email</label>
+              <span class="requiredInfo__email requiredInfo"></span>
+            </div>
+            <input
+              type="text"
+              name="email"
+              id="inputEmail"
+              class="inputEmail checkoutForm__input"
+              required
+            />
+            <!-- input -->
+          </form>
+          <div class="checkoutForm__btn-container">
+            <button id="checkoutForm__btn" class="checkoutForm__btn">
+              Place order
+            </button>
+          </div>
+        </div>
+        <div class="section__orderSummary--container">
+          <div class="section__orderSummary--border"></div>
+          <div class="section__orderSummary--title">Order Summary</div>
+          <div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- dyn JavaScript ends here -->
+
+    <footer></footer>
+    <!-- Importing JS scripts -->
+    <script src="./js/common.js" defer></script>
+    <script src="./js/checkout.js" defer></script>
+    <script src="./js/burger-menu.js" defer></script>
+  </body>
+</html>
