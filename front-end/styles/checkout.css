@@ -421,6 +421,12 @@ li a:hover {
   font-weight: 400;
   margin-left: auto;
 }
+.checkoutForm__required--failure {
+  border: 2px solid rgba(192, 107, 107, 1);
+}
+.checkoutForm__required--success {
+  border: 3px solid rgb(86, 151, 94, 0.5);
+}
 
 /* ORDER SUMMARY SECTION  */
 
