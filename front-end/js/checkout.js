@@ -243,6 +243,9 @@ function submitToApi(formValues) {
     .then(function (order) {
       console.log(order);
       displayId(order);
+    })
+    .catch(function (err) {
+      alert(err);
     });
 }
 
