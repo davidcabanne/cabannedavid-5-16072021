@@ -86,6 +86,7 @@
 
     <section class="section__checkoutForm">
       <div class="section__checkoutForm--wrapper">
+        <!-- CHECKOUT FORM SECTION -->
         <div class="section__checkoutForm--container">
           <div class="section__checkoutForm--title">Billing info</div>
           <form action="#" class="checkoutForm">
@@ -163,13 +164,51 @@
             </button>
           </div>
         </div>
+
+        <!-- ORDER SUMMARY SECTION -->
         <div class="section__orderSummary--container">
           <div class="section__orderSummary--border"></div>
-          <div class="section__orderSummary--title">Order Summary</div>
-          <div></div>
+          <div class="section__orderSummary--wrapper">
+            <div class="section__orderSummary--title">Order Summary</div>
+            <!-- start of template -->
+            <div id="section__orderSummary--templateContainer">
+              <!-- template content  -->
+            </div>
+            <!-- end of template -->
+            <div class="section__orderSummary--totalPriceContainer">
+              <div class="totalPrice__text">Total Price:</div>
+              <div class="totalPrice__result"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
+    <template id="Template__orderSummary" class="Template__orderSummary">
+      <!-- template content -->
+      <div class="orderSummary__structure">
+        <div class="orderSummary__img">
+          <img />
+        </div>
+        <div class="orderSummary__infos">
+          <div class="orderSummary__name"></div>
+          <div class="orderSummary__option--container">
+            <div class="orderSummary__option--lens">Lens:</div>
+            <div class="orderSummary__option--selectOpt"></div>
+          </div>
+          <div class="orderSummary__qty--container">
+            <div class="orderSummary__qty--text">Qty:</div>
+            <div class="orderSummary__qty--select"></div>
+          </div>
+          <div class="orderSummary__price--container">
+            <div class="orderSummary__price--text">Total Price:</div>
+            <div class="orderSummary__price"></div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <section id="section__displayId" class="section__displayId"></section>
 
     <!-- dyn JavaScript ends here -->
 

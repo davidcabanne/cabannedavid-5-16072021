@@ -325,7 +325,7 @@ li a:hover {
 .section__checkoutForm--wrapper {
   width: 90vw;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 2fr;
   grid-gap: 60px;
   justify-content: space-between;
   margin: 40px 0px;
@@ -437,7 +437,27 @@ li a:hover {
   position: absolute;
   height: 100%;
   width: 2px;
-  background: rgba(83, 89, 95, 0.2);
+  background: rgba(83, 89, 95, 0.1);
+}
+.section__orderSummary--wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+  height: 100%;
+}
+
+.orderSummary__structure {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  height: 100px;
+}
+.orderSummary__infos {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .section__orderSummary--title {
@@ -445,7 +465,179 @@ li a:hover {
   font-size: 30px;
   font-weight: 800;
   margin-bottom: 30px;
-  margin-left: 30px;
+}
+
+.orderSummary__img {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  margin-right: 15px;
+  overflow: hidden;
+}
+
+.orderSummary__img::after {
+  content: "";
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  border-radius: 20px;
+  background: chocolate;
+  opacity: 0.15;
+}
+.orderSummary__img img {
+  object-fit: cover;
+  min-width: 100%;
+  height: 100%;
+}
+
+.orderSummary__option--container,
+.orderSummary__qty--container,
+.orderSummary__price--container {
+  display: flex;
+}
+
+.orderSummary__option--lens,
+.orderSummary__qty--text,
+.orderSummary__price--text {
+  margin-right: 7.5px;
+  color: var(--darks);
+  font-weight: 500;
+}
+
+.orderSummary__option--selectOpt,
+.orderSummary__qty--select,
+.orderSummary__price {
+  color: var(--secondary);
+}
+.orderSummary__name {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--darks);
+}
+
+.section__orderSummary--totalPriceContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: auto;
+}
+.totalPrice__text,
+.totalPrice__result {
+  color: var(--darks);
+  font-weight: 500;
+}
+
+.totalPrice__result {
+  font-size: 40px;
+  font-weight: 900;
+}
+
+.section__displayId {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.section__displayId::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+  background: var(--primary);
+  opacity: 0.95;
+  z-index: -1;
+}
+
+.section__displayId--success {
+  display: block;
+  opacity: 1;
+  animation: opacity_in 0.3s ease-in-out forwards;
+}
+.section__displayId--out {
+  opacity: 0;
+  animation: opacity_out 0.3s ease-in-out forwards;
+}
+@keyframes opacity_in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes opacity_out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.displayId__Wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.displayId__text,
+.displayId__nbr {
+  width: 50vw;
+  color: var(--darks);
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+}
+.displayId__text {
+  margin-bottom: 30px;
+}
+.displayId__orderId {
+  color: var(--secondary);
+}
+.displayId__exit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: calc(5vw + 22.5px);
+  margin-top: 30px;
+  font-size: 35px;
+  color: var(--secondary-cta);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.displayId__exit:hover {
+  color: var(--secondary);
+  transform: rotate(-180deg) scale(1.1);
+}
+.displayId__exit--anim-out {
+  animation: closingMotion_out_plus forwards 0.3s ease-in-out;
+}
+
+@keyframes closingMotion_out_plus {
+  0% {
+    color: var(--secondary);
+    transform: rotate(-180deg) scale(1.1);
+  }
+  100% {
+    color: var(--secondary-cta);
+    transform: rotate(0deg) scale(1);
+  }
 }
 
 /*******************************/

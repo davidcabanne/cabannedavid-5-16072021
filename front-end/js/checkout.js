@@ -1,8 +1,10 @@
 (function () {
   updateCartNotification();
+  displayCart();
 })();
 
-// < CHECKOUT FORM > //
+// - - - - -  CHECKOUT FORM starts here  - - - - - //
+//
 const btnSendForm = document.querySelector(".checkoutForm__btn");
 
 btnSendForm.addEventListener("click", function (e) {
@@ -189,11 +191,33 @@ function handleRegex(formValues) {
     // 2_ if all inputs are approved by Regex, then submits values => to API
     submitToApi(formValues);
   } else {
+    // 1_ if form is invalid => alert user
     alert("Please fill the form");
   }
 }
 
 function submitToApi(formValues) {
+  let cart = JSON.parse(localStorage.getItem("cart"));
+
+  const products = [];
+
+  for (let i = 0; i < cart.length; i++) {
+    // const cartItem = cart[i];
+    // const cartIdName = cart[i].articleName;
+    // const cartIdlens = cart[i].lensOption;
+    // const cartIdQty = cart[i].quantity;
+    const cartIdProducts = cart[i].articleId;
+
+    // let productCart = {
+    //   productId: cartIdProducts,
+    //   productName: cartIdName,
+    //   productLens: cartIdlens,
+    //   productQty: cartIdQty,
+    // };
+
+    products.push(cartIdProducts);
+  }
+
   let contact = {
     firstName: `${formValues.firstName}`,
     lastName: `${formValues.lastName}`,
@@ -204,7 +228,7 @@ function submitToApi(formValues) {
 
   let data = {
     contact,
-    products: [],
+    products,
   };
 
   var param = {
@@ -215,5 +239,143 @@ function submitToApi(formValues) {
 
   fetch("http://localhost:3000/api/cameras/order", param)
     .then((response) => response.json())
-    .then((order) => console.log(order));
+    // .then((order) => console.log(order));
+    .then(function (order) {
+      console.log(order);
+      displayId(order);
+    });
+}
+
+function displayId(order) {
+  let cart = JSON.parse(localStorage.getItem("cart"));
+
+  const displayIdContainer = document.getElementById("section__displayId");
+  const body = document.body;
+
+  const displayIdWrapper = document.createElement("div");
+  const displayNotification = document.createElement("div");
+  const displayId = document.createElement("div");
+  const closeDisplayId = document.createElement("div");
+
+  displayIdContainer.appendChild(displayIdWrapper);
+  displayIdWrapper.appendChild(displayNotification);
+  displayIdWrapper.appendChild(displayId);
+  displayIdWrapper.appendChild(closeDisplayId);
+
+  displayIdWrapper.classList.add("displayId__Wrapper");
+
+  displayNotification.innerHTML = `Your order has been successfully processed and you will shortly receive an email from CAM&RAS confirming your transaction!`;
+  displayNotification.classList.add("displayId__text");
+
+  displayId.innerHTML = `Your order ID is:</br> <span class="displayId__orderId">${order.orderId}</span>`;
+  displayId.classList.add("displayId__nbr");
+
+  closeDisplayId.innerHTML = `<i class="fas fa-times displayId__exit"></i>`;
+
+  displayIdContainer.classList.add("section__displayId--success");
+
+  closeDisplayId.addEventListener("click", function (e) {
+    const displayIdExitOut = document.querySelector(".displayId__exit");
+    displayIdContainer.classList.add("section__displayId--out");
+    displayIdExitOut.classList.add("displayId__exit--anim-out");
+
+    setTimeout(function () {
+      displayIdContainer.classList.remove("section__displayId--success");
+      displayIdContainer.classList.remove("section__displayId--out");
+      displayIdExitOut.classList.remove("displayId__exit--anim-out");
+    }, 300);
+  });
+}
+
+// - - - - -  CHECKOUT FORM ends here  - - - - - //
+
+function displayCart() {
+  let cart = JSON.parse(localStorage.getItem("cart"));
+
+  console.log(cart);
+
+  const totalPriceContainer = document.querySelector(".totalPrice__result");
+
+  if (cart === null) {
+    cart = [];
+
+    totalPriceContainer.innerHTML = "0 €";
+  }
+
+  const cartTemplateContainer = document.getElementById(
+    "section__orderSummary--templateContainer"
+  );
+  cartTemplateContainer.innerHTML = "";
+
+  if (cart.length === 0) {
+    //
+    // create a section for Empty cart
+    console.log("the cart is empty");
+
+    totalPriceContainer.innerHTML = "0 €";
+  }
+
+  if (cart.length > 0) {
+    console.log("the cart has some items");
+
+    const totalPricesArray = [];
+
+    for (let i = 0; i < cart.length; i++) {
+      const cartItem = cart[i];
+
+      const cartItemNode = renderItem(cartItem, cart, i);
+      cartTemplateContainer.appendChild(cartItemNode);
+
+      const cartPrices = cart[i].articlePrice * cart[i].quantity;
+
+      totalPricesArray.push(cartPrices);
+    }
+
+    totalPriceReducer(totalPriceContainer, totalPricesArray);
+  }
+}
+
+function renderItem(cartItem, cart, index) {
+  const template = document.getElementById("Template__orderSummary");
+  const node = document.importNode(template.content, true);
+
+  const img = node.querySelector(".orderSummary__img img");
+  img.setAttribute("src", cartItem.articleImg);
+
+  const cartItemName = node.querySelector(".orderSummary__name");
+  cartItemName.textContent = cartItem.articleName;
+
+  const cartItemLensOpt = node.querySelector(
+    ".orderSummary__option--selectOpt"
+  );
+  cartItemLensOpt.textContent = cartItem.lensOption;
+
+  const cartItemQtyContainer = node.querySelector(".orderSummary__qty--select");
+  cartItemQtyContainer.textContent = cartItem.quantity;
+
+  // Price formatter & result
+  const currencyFormatter = new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  const price = node.querySelector(".orderSummary__price");
+  const priceResult = cartItem.articlePrice * cartItem.quantity;
+  price.innerHTML = currencyFormatter.format(priceResult / 100);
+
+  return node;
+}
+
+function totalPriceReducer(totalPriceContainer, totalPricesArray) {
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  const totalPrice = totalPricesArray.reduce(reducer, 0);
+
+  const currencyFormatter = new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  totalPriceContainer.innerHTML = currencyFormatter.format(totalPrice / 100);
+
+  return;
 }
