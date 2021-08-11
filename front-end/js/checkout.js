@@ -1,20 +1,27 @@
 (function () {
   updateCartNotification();
   displayCart();
+
+  const btnSendForm = document.querySelector(".checkoutForm__btn");
+
+  btnSendForm.addEventListener("click", handleClickCheckout);
+
+  // fetches localStorage content, injects into each form input
+  let formValues = JSON.parse(localStorage.getItem("formValues"));
+
+  if (formValues !== null) {
+    document.querySelector("#inputFirstName").value = formValues.firstName;
+    document.querySelector("#inputLastName").value = formValues.lastName;
+    document.querySelector("#inputAddress").value = formValues.address;
+    document.querySelector("#inputCity").value = formValues.city;
+    document.querySelector("#inputEmail").value = formValues.email;
+  }
 })();
 
 // - - - - -  CHECKOUT FORM starts here  - - - - - //
-//
-const btnSendForm = document.querySelector(".checkoutForm__btn");
 
-btnSendForm.addEventListener("click", function (e) {
-  handleSendToCart(e);
-});
-
-function handleSendToCart(e) {
+function handleClickCheckout(e) {
   e.preventDefault();
-
-  let cart = JSON.parse(localStorage.getItem("cart"));
 
   // fetches checkout form values from input
   const formValues = {
@@ -25,178 +32,147 @@ function handleSendToCart(e) {
     email: document.querySelector("#inputEmail").value,
   };
 
-  // sends data obj <cart> & <formValues> = > to server
-  const submitDataToServer = {
-    cart,
-    formValues,
-  };
+  const formIsValid = validateForm(formValues);
 
-  handleRegex(formValues);
-}
-
-// fetches localStorage content, injects into each form input
-let formData = localStorage.getItem("formValues");
-let formDataObj = JSON.parse(formData);
-
-if (formData === null) {
-  formData = [];
-}
-
-if (formData.length > 0) {
-  const firstNameData = (document.querySelector("#inputFirstName").value =
-    formDataObj.firstName);
-  const lastNameData = (document.querySelector("#inputLastName").value =
-    formDataObj.lastName);
-  const addressData = (document.querySelector("#inputAddress").value =
-    formDataObj.address);
-  const cityData = (document.querySelector("#inputCity").value =
-    formDataObj.city);
-  const emailData = (document.querySelector("#inputEmail").value =
-    formDataObj.email);
-}
-
-function handleRegex(formValues) {
-  // REGEX options
-  const regExNameCity = function (value) {
-    return /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z]{3,20})$/.test(value);
-  };
-  const regExEmail = function (value) {
-    return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
-  };
-  const regExAddress = function (value) {
-    return /^[A-Za-z0-9\s]{5,50}$/.test(value);
-  };
-
-  // required Text functions
-  function requiredTextRemove(querySelectorId) {
-    document.querySelector(`.${querySelectorId}`).textContent = "";
-  }
-  function requiredTextAdd(querySelectorId) {
-    document.querySelector(`.${querySelectorId}`).textContent = "Required";
-  }
-  // border Failure
-  function requiredBorderFailureRemove(querySelectorIdB) {
-    document
-      .querySelector(`#${querySelectorIdB}`)
-      .classList.remove("checkoutForm__required--failure");
-  }
-  function requiredBorderFailureAdd(querySelectorIdB) {
-    document
-      .querySelector(`#${querySelectorIdB}`)
-      .classList.add("checkoutForm__required--failure");
-  }
-  // border Success
-  function requiredBorderSuccessRemove(querySelectorIdB) {
-    document
-      .querySelector(`#${querySelectorIdB}`)
-      .classList.remove("checkoutForm__required--success");
-  }
-  function requiredBorderSuccessAdd(querySelectorIdB) {
-    document
-      .querySelector(`#${querySelectorIdB}`)
-      .classList.add("checkoutForm__required--success");
-  }
-
-  // Form control inputs & approval
-  function firstNameControlInput() {
-    const controlFirstNameInput = formValues.firstName;
-
-    if (regExNameCity(controlFirstNameInput)) {
-      requiredTextRemove("requiredInfo__firstName");
-      requiredBorderFailureRemove("inputFirstName");
-      requiredBorderSuccessAdd("inputFirstName");
-      return true;
-    } else {
-      requiredTextAdd("requiredInfo__firstName");
-      requiredBorderFailureAdd("inputFirstName");
-      requiredBorderSuccessRemove("inputFirstName");
-      return false;
-    }
-  }
-
-  function lastNameControlInput() {
-    const controlLastNameInput = formValues.lastName;
-
-    if (regExNameCity(controlLastNameInput)) {
-      requiredTextRemove("requiredInfo__lastName");
-      requiredBorderFailureRemove("inputLastName");
-      requiredBorderSuccessAdd("inputLastName");
-      return true;
-    } else {
-      requiredTextAdd("requiredInfo__lastName");
-      requiredBorderFailureAdd("inputLastName");
-      requiredBorderSuccessRemove("inputLastName");
-      return false;
-    }
-  }
-
-  function addressControlInput() {
-    const controlAddressInput = formValues.address;
-
-    if (regExAddress(controlAddressInput)) {
-      requiredTextRemove("requiredInfo__address");
-      requiredBorderFailureRemove("inputAddress");
-      requiredBorderSuccessAdd("inputAddress");
-      return true;
-    } else {
-      requiredTextAdd("requiredInfo__address");
-      requiredBorderFailureAdd("inputAddress");
-      requiredBorderSuccessRemove("inputAddress");
-      return false;
-    }
-  }
-
-  function cityControlInput() {
-    const controlCityInput = formValues.city;
-
-    if (regExNameCity(controlCityInput)) {
-      requiredTextRemove("requiredInfo__city");
-      requiredBorderFailureRemove("inputCity");
-      requiredBorderSuccessAdd("inputCity");
-      return true;
-    } else {
-      requiredTextAdd("requiredInfo__city");
-      requiredBorderFailureAdd("inputCity");
-      requiredBorderSuccessRemove("inputCity");
-      return false;
-    }
-  }
-  function emailControlInput() {
-    const controlEmailInput = formValues.email;
-
-    if (regExEmail(controlEmailInput)) {
-      requiredTextRemove("requiredInfo__email");
-      requiredBorderFailureRemove("inputEmail");
-      requiredBorderSuccessAdd("inputEmail");
-      return true;
-    } else {
-      requiredTextAdd("requiredInfo__email");
-      requiredBorderFailureAdd("inputEmail");
-      requiredBorderSuccessRemove("inputEmail");
-      return false;
-    }
-  }
-
-  // handles approval of form before sending in localStorage
-  if (
-    firstNameControlInput() &&
-    lastNameControlInput() &&
-    addressControlInput() &&
-    cityControlInput() &&
-    emailControlInput()
-  ) {
+  if (formIsValid === true) {
     // 1_ sends object <formValues> => to localStorage
     localStorage.setItem("formValues", JSON.stringify(formValues));
 
     // 2_ if all inputs are approved by Regex, then submits values => to API
     submitToApi(formValues);
   } else {
-    // 1_ if form is invalid => alert user
+    // 3_ if form is invalid => alert user
     alert("Please fill the form");
   }
 }
 
-function submitToApi(formValues) {
+function validateForm(formValues) {
+  // handles approval of form before sending in localStorage
+  if (
+    firstNameControlInput(formValues.firstName) &&
+    lastNameControlInput(formValues.lastName) &&
+    addressControlInput(formValues.address) &&
+    cityControlInput(formValues.city) &&
+    emailControlInput(formValues.email)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Form control inputs & approval
+function firstNameControlInput(firstName) {
+  if (regExNameCity(firstName)) {
+    requiredTextRemove("requiredInfo__firstName");
+    requiredBorderFailureRemove("inputFirstName");
+    requiredBorderSuccessAdd("inputFirstName");
+    return true;
+  } else {
+    requiredTextAdd("requiredInfo__firstName");
+    requiredBorderFailureAdd("inputFirstName");
+    requiredBorderSuccessRemove("inputFirstName");
+    return false;
+  }
+}
+
+function lastNameControlInput(lastName) {
+  if (regExNameCity(lastName)) {
+    requiredTextRemove("requiredInfo__lastName");
+    requiredBorderFailureRemove("inputLastName");
+    requiredBorderSuccessAdd("inputLastName");
+    return true;
+  } else {
+    requiredTextAdd("requiredInfo__lastName");
+    requiredBorderFailureAdd("inputLastName");
+    requiredBorderSuccessRemove("inputLastName");
+    return false;
+  }
+}
+
+function addressControlInput(address) {
+  if (regExAddress(address)) {
+    requiredTextRemove("requiredInfo__address");
+    requiredBorderFailureRemove("inputAddress");
+    requiredBorderSuccessAdd("inputAddress");
+    return true;
+  } else {
+    requiredTextAdd("requiredInfo__address");
+    requiredBorderFailureAdd("inputAddress");
+    requiredBorderSuccessRemove("inputAddress");
+    return false;
+  }
+}
+
+function cityControlInput(city) {
+  if (regExNameCity(city)) {
+    requiredTextRemove("requiredInfo__city");
+    requiredBorderFailureRemove("inputCity");
+    requiredBorderSuccessAdd("inputCity");
+    return true;
+  } else {
+    requiredTextAdd("requiredInfo__city");
+    requiredBorderFailureAdd("inputCity");
+    requiredBorderSuccessRemove("inputCity");
+    return false;
+  }
+}
+function emailControlInput(email) {
+  if (regExEmail(email)) {
+    requiredTextRemove("requiredInfo__email");
+    requiredBorderFailureRemove("inputEmail");
+    requiredBorderSuccessAdd("inputEmail");
+    return true;
+  } else {
+    requiredTextAdd("requiredInfo__email");
+    requiredBorderFailureAdd("inputEmail");
+    requiredBorderSuccessRemove("inputEmail");
+    return false;
+  }
+}
+
+// REGEX options
+function regExNameCity(value) {
+  return /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z]{3,20})$/.test(value);
+}
+function regExEmail(value) {
+  return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
+}
+function regExAddress(value) {
+  return /^[A-Za-z0-9\s]{5,50}$/.test(value);
+}
+
+// required Text functions
+function requiredTextRemove(selector) {
+  document.querySelector(`.${selector}`).textContent = "";
+}
+function requiredTextAdd(selector) {
+  document.querySelector(`.${selector}`).textContent = "Required";
+}
+// border Failure
+function requiredBorderFailureRemove(selector) {
+  document
+    .querySelector(`#${selector}`)
+    .classList.remove("checkoutForm__required--failure");
+}
+function requiredBorderFailureAdd(selector) {
+  document
+    .querySelector(`#${selector}`)
+    .classList.add("checkoutForm__required--failure");
+}
+// border Success
+function requiredBorderSuccessRemove(selector) {
+  document
+    .querySelector(`#${selector}`)
+    .classList.remove("checkoutForm__required--success");
+}
+function requiredBorderSuccessAdd(selector) {
+  document
+    .querySelector(`#${selector}`)
+    .classList.add("checkoutForm__required--success");
+}
+
+function submitToApi(contact) {
   let cart = JSON.parse(localStorage.getItem("cart"));
 
   const products = [];
@@ -206,7 +182,6 @@ function submitToApi(formValues) {
     // const cartIdName = cart[i].articleName;
     // const cartIdlens = cart[i].lensOption;
     // const cartIdQty = cart[i].quantity;
-    const cartIdProducts = cart[i].articleId;
 
     // let productCart = {
     //   productId: cartIdProducts,
@@ -215,16 +190,8 @@ function submitToApi(formValues) {
     //   productQty: cartIdQty,
     // };
 
-    products.push(cartIdProducts);
+    products.push(cart[i].articleId);
   }
-
-  let contact = {
-    firstName: `${formValues.firstName}`,
-    lastName: `${formValues.lastName}`,
-    address: `${formValues.address}`,
-    city: `${formValues.city}`,
-    email: `${formValues.email}`,
-  };
 
   let data = {
     contact,
@@ -237,23 +204,36 @@ function submitToApi(formValues) {
     body: JSON.stringify(data),
   };
 
-  fetch("http://localhost:3000/api/cameras/order", param)
-    .then((response) => response.json())
-    // .then((order) => console.log(order));
-    .then(function (order) {
-      console.log(order);
+  // fetch("http://localhost:3000/api/cameras/order", param)
+  //   .then((response) => response.json())
+  //   // .then((order) => console.log(order));
+  //   .then(function (order) {
+  //     console.log(order);
+  //     displayId(order);
+  //   })
+  //   .catch(function (err) {
+  //     alert(err);
+  //   });
+
+  // Grabs the API's url
+  const API_ORDER_URL = "http://localhost:3000/api/cameras/order";
+
+  (async function () {
+    const response = await fetch(API_ORDER_URL, param);
+    const order = await response.json();
+    try {
+      const orderIDResponse = order;
+      console.log(orderIDResponse);
       displayId(order);
-    })
-    .catch(function (err) {
-      alert(err);
-    });
+      return orderIDResponse;
+    } catch (err) {
+      console.error(err);
+    }
+  })();
 }
 
 function displayId(order) {
-  let cart = JSON.parse(localStorage.getItem("cart"));
-
   const displayIdContainer = document.getElementById("section__displayId");
-  const body = document.body;
 
   const displayIdWrapper = document.createElement("div");
   const displayNotification = document.createElement("div");
@@ -277,7 +257,7 @@ function displayId(order) {
 
   displayIdContainer.classList.add("section__displayId--success");
 
-  closeDisplayId.addEventListener("click", function (e) {
+  closeDisplayId.addEventListener("click", function () {
     const displayIdExitOut = document.querySelector(".displayId__exit");
     displayIdContainer.classList.add("section__displayId--out");
     displayIdExitOut.classList.add("displayId__exit--anim-out");
@@ -311,8 +291,6 @@ function displayCart() {
   cartTemplateContainer.innerHTML = "";
 
   if (cart.length === 0) {
-    //
-    // create a section for Empty cart
     console.log("the cart is empty");
 
     totalPriceContainer.innerHTML = "0 €";
@@ -338,7 +316,7 @@ function displayCart() {
   }
 }
 
-function renderItem(cartItem, cart, index) {
+function renderItem(cartItem) {
   const template = document.getElementById("Template__orderSummary");
   const node = document.importNode(template.content, true);
 

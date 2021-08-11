@@ -6,6 +6,7 @@
   --heading-one: 70px;
   --primary: rgb(226, 213, 202);
   --secondary: rgb(192, 149, 100);
+  --secondary-co: rgba(199, 185, 170);
   --secondary-cta: rgb(78, 69, 59);
   --darks: rgb(42, 45, 48);
   --half-darks: rgb(83, 89, 95);
@@ -469,7 +470,9 @@ li a:hover {
   padding: 30px 30px;
   margin: 30px 0px;
   border-radius: 40px;
-  border: 3px solid var(--darks);
+  background: var(--secondary-co);
+  box-shadow: 5px 5px 16px 0 rgba(0, 0, 0, 0.15),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.1);
 }
 .cartItem__img {
   position: relative;
@@ -481,6 +484,7 @@ li a:hover {
   background: var(--darks);
   border-radius: 20px;
   margin-right: 15px;
+  opacity: 0.75;
   overflow: hidden;
 }
 
@@ -793,12 +797,23 @@ li a:hover {
 
   /* BURGER STYLES END HERE */
 
+  .cartItem__section-wrapper {
+    width: 100%;
+  }
+
   .cartItem__header {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0px 30px 0px 30px;
   }
+  .cartItem__footer {
+    padding: 0px 30px 0px 30px;
+    margin-bottom: 30px;
+  }
+
   .cartItem__section-right {
     display: flex;
     align-self: flex-start;
@@ -819,21 +834,24 @@ li a:hover {
   .cartItem__container {
     width: 90vw;
     display: flex;
-    padding: 30px 30px;
+    flex-direction: column;
+    padding: 0px 0px;
     margin: 30px 0px;
     border-radius: 40px;
-    border: 3px solid var(--darks);
   }
   .cartItem__img {
     position: relative;
     display: flex;
     justify-content: center;
-    align-self: center;
-    width: 200px;
-    height: 150px;
+    align-self: flex-start;
+    width: 100%;
+    height: 200px;
     background: var(--darks);
     border-radius: 20px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
     margin-right: 30px;
+    margin-bottom: 30px;
     overflow: hidden;
   }
 }
