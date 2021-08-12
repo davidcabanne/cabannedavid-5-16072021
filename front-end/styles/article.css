@@ -6,10 +6,20 @@
   --heading-one: 70px;
   --primary: rgb(226, 213, 202);
   --secondary: rgb(192, 149, 100);
+  --secondary-co: rgb(199, 185, 170);
   --secondary-cta: rgb(78, 69, 59);
   --darks: rgb(42, 45, 48);
   --half-darks: rgb(83, 89, 95);
   --whites: rgb(209, 214, 218);
+  /* font-sizes: */
+  --body-firstFont: 16px;
+  --body-secondFont: 20px;
+  --headingFirst: 25px;
+  --headingSecond: 31.25px;
+  --headingThird: 39.06px;
+  --headingFourth: 48.83px;
+  --largeFirst: 61.04px;
+  --largeSecond: 76.29px;
 }
 
 *,
@@ -644,14 +654,10 @@ li a:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-gap: 50px;
-  /* margin-top: 50px;
-  margin-bottom: 50px; */
 }
 
 .article__info--container {
   width: 90vw;
-  /* margin-top: 50px; */
-  /* padding: 30px; */
 }
 .article__info--align {
   display: flex;
@@ -662,7 +668,8 @@ li a:hover {
 }
 
 .article__name {
-  font-size: calc(var(--responsive-font-size) / 1.8);
+  /* font-size: calc(var(--responsive-font-size) / 1.8); */
+  font-size: var(--largeFirst);
   font-weight: 800;
   color: var(--darks);
 }
@@ -670,7 +677,7 @@ li a:hover {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  font-size: 16px;
+  font-size: var(--body-secondFont);
   font-weight: 500;
   color: var(--darks);
   min-height: 100%;
@@ -688,7 +695,8 @@ li a:hover {
   line-height: 1.4;
   font-weight: 400;
   color: var(--half-darks);
-  width: 100%;
+  width: 50ch;
+  max-width: 100%;
   margin-bottom: 20px;
 }
 
@@ -986,6 +994,12 @@ li a:hover {
   .cartSuccess__section--productText {
     margin-bottom: 30px;
   }
+  .article__name {
+    /* font-size: calc(var(--responsive-font-size) / 1.8); */
+    font-size: var(--headingSecond);
+    font-weight: 800;
+    color: var(--darks);
+  }
 }
 
 @media screen and (max-width: 376px) {
@@ -1082,7 +1096,7 @@ li a:hover {
 }
 @media screen and (min-width: 1023px) {
   .article__name {
-    font-size: 45px;
+    font-size: var(--largeFirst);
     font-weight: 800;
     color: var(--darks);
   }

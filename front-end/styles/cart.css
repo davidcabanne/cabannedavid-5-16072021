@@ -6,11 +6,20 @@
   --heading-one: 70px;
   --primary: rgb(226, 213, 202);
   --secondary: rgb(192, 149, 100);
-  --secondary-co: rgba(199, 185, 170);
+  --secondary-co: rgb(199, 185, 170);
   --secondary-cta: rgb(78, 69, 59);
   --darks: rgb(42, 45, 48);
   --half-darks: rgb(83, 89, 95);
   --whites: rgb(209, 214, 218);
+  /* font-sizes: */
+  --body-firstFont: 16px;
+  --body-secondFont: 20px;
+  --headingFirst: 25px;
+  --headingSecond: 31.25px;
+  --headingThird: 39.06px;
+  --headingFourth: 48.83px;
+  --largeFirst: 61.04px;
+  --largeSecond: 76.29px;
 }
 
 *,
