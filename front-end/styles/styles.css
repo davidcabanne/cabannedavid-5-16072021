@@ -771,6 +771,7 @@ main {
     bottom: 0;
     margin-bottom: 30px;
     margin-left: 5vw;
+    max-height: 200px;
     width: 40vw;
     height: 40vw;
     display: flex;
@@ -845,6 +846,7 @@ main {
     margin-bottom: 30px;
     border: 2px solid var(--darks);
     border-radius: 20px;
+    max-height: 200px;
     width: 40vw;
     height: 40vw;
     display: flex;

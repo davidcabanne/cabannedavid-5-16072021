@@ -397,6 +397,7 @@ li a:hover {
   width: 200px;
   background: var(--secondary);
   border-radius: 5px;
+  margin-top: 30px;
   transition: background 0.15s ease-in-out;
 }
 
@@ -548,7 +549,8 @@ li a:hover {
   font-weight: 900;
 }
 
-.section__displayId {
+.section__displayId,
+.section__displayError {
   position: fixed;
   top: 0;
   left: 0;
@@ -559,7 +561,8 @@ li a:hover {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
-.section__displayId::after {
+.section__displayId::after,
+.section__displayError::after {
   content: "";
   position: absolute;
   top: 0;
@@ -730,7 +733,8 @@ li a:hover {
     width: 100px;
     height: 100px;
     border-radius: 10px;
-    margin-right: 15px;
+    margin-right: 30px;
+    margin-bottom: 0px;
   }
 }
 
@@ -918,7 +922,7 @@ li a:hover {
   /* BURGER STYLES END HERE */
 }
 
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 415px) {
   .nav__logo-svg {
     width: 100px;
     height: auto;
@@ -989,5 +993,47 @@ li a:hover {
     transform: rotateZ(315deg) translateY(-10px) translateX(2px);
     background: var(--secondary);
     z-index: 10;
+  }
+
+  .orderSummary__price--container,
+  .orderSummary__option--container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+  .orderSummary__price--text {
+    width: auto;
+  }
+  .orderSummary__name {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--darks);
+  }
+
+  .orderSummary__option--lens,
+  .orderSummary__qty--text,
+  .orderSummary__price--text,
+  .orderSummary__option--selectOpt,
+  .orderSummary__qty--select,
+  .orderSummary__price {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 281px) {
+  .orderSummary__name {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--darks);
+  }
+
+  .orderSummary__option--lens,
+  .orderSummary__qty--text,
+  .orderSummary__price--text,
+  .orderSummary__option--selectOpt,
+  .orderSummary__qty--select,
+  .orderSummary__price {
+    font-size: 12px;
   }
 }

@@ -42,7 +42,7 @@ function handleClickCheckout(e) {
     submitToApi(formValues);
   } else {
     // 3_ if form is invalid => alert user
-    alert("Please fill the form");
+    displayErr();
   }
 }
 
@@ -204,17 +204,6 @@ function submitToApi(contact) {
     body: JSON.stringify(data),
   };
 
-  // fetch("http://localhost:3000/api/cameras/order", param)
-  //   .then((response) => response.json())
-  //   // .then((order) => console.log(order));
-  //   .then(function (order) {
-  //     console.log(order);
-  //     displayId(order);
-  //   })
-  //   .catch(function (err) {
-  //     alert(err);
-  //   });
-
   // Grabs the API's url
   const API_ORDER_URL = "http://localhost:3000/api/cameras/order";
 
@@ -252,6 +241,43 @@ function displayId(order) {
 
   displayId.innerHTML = `Your order ID is:</br> <span class="displayId__orderId">${order.orderId}</span>`;
   displayId.classList.add("displayId__nbr");
+
+  closeDisplayId.innerHTML = `<i class="fas fa-times displayId__exit"></i>`;
+
+  displayIdContainer.classList.add("section__displayId--success");
+
+  closeDisplayId.addEventListener("click", function () {
+    const displayIdExitOut = document.querySelector(".displayId__exit");
+    displayIdContainer.classList.add("section__displayId--out");
+    displayIdExitOut.classList.add("displayId__exit--anim-out");
+
+    setTimeout(function () {
+      displayIdContainer.classList.remove("section__displayId--success");
+      displayIdContainer.classList.remove("section__displayId--out");
+      displayIdExitOut.classList.remove("displayId__exit--anim-out");
+    }, 300);
+  });
+}
+
+function displayErr() {
+  console.log("Please fill the form");
+
+  // const displayErrContainer = document.getElementById("section__displayError");
+
+  const displayIdContainer = document.getElementById("section__displayError");
+
+  const displayIdWrapper = document.createElement("div");
+  const displayNotification = document.createElement("div");
+  const closeDisplayId = document.createElement("div");
+
+  displayIdContainer.appendChild(displayIdWrapper);
+  displayIdWrapper.appendChild(displayNotification);
+  displayIdWrapper.appendChild(closeDisplayId);
+
+  displayIdWrapper.classList.add("displayId__Wrapper");
+
+  displayNotification.innerHTML = `Please fill the form thoroughly, all fields are required !`;
+  displayNotification.classList.add("displayId__text");
 
   closeDisplayId.innerHTML = `<i class="fas fa-times displayId__exit"></i>`;
 
