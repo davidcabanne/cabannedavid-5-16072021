@@ -2,8 +2,7 @@
 
 Cinquième projet du parcours développeur web OpenClassrooms.
 
-L'objectif principal consiste en la création du front-end d'un site e-commerce en vanilla Javascript en utilisant l’API préalablement fournie ici :
-https://github.com/OpenClassrooms-Student-Center/JWDP5
+L'objectif principal consiste en la création du front-end d'un site e-commerce en vanilla Javascript en utilisant l’API préalablement fournie [ici](https://github.com/OpenClassrooms-Student-Center/JWDP5).
 
 Il ne s'agit là que d'un MVP, aucune réelle gestion des transaction n'est effectué.
 
@@ -24,7 +23,7 @@ Vous avez besoin de `Node` & `npm` installé localement sur votre machine.
 
 - Clonez le repository.
 - Lancez `npm install` dans votre console.
-- Lancez `node server` pour lancer le serveur.
+- Lancez `node server.js` pour lancer le serveur.
   Le serveur tourne par défaut en localhost avec le port 3000.
 
 ## Cahier des charges :

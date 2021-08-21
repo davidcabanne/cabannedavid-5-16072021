@@ -177,7 +177,6 @@ function removeFromCart(itemIndex) {
   }
 
   cart.splice(itemIndex, 1);
-  console.log(itemIndex);
 
   localStorage.setItem("cart", JSON.stringify(cart));
 }
