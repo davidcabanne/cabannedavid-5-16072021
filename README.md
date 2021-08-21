@@ -18,13 +18,13 @@ Aucune maquette n'est donnée, il est donc demandé d'improviser la mise en plac
 
 ### Prérequis :
 
-Vous avez besoin de `Node` & `npm` installé localement sur votre machine.
+Vous avez besoin de `**Node**` & `**npm**` installé localement sur votre machine.
 
 ### Installation :
 
 - Clonez le repository.
-- Lancez `npm install` dans votre console.
-- Lancez `node server` pour lancer le serveur.
+- Lancez `**npm install**` dans votre console.
+- Lancez `**node server**` pour lancer le serveur.
   Le serveur tourne par défaut en localhost avec le port 3000.
 
 ## Cahier des charges :
