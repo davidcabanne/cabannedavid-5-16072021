@@ -11,7 +11,7 @@
     console.error(err);
 
     // In case of API error, display an error message
-    const container = document.querySelector(".section__dyn");
+    const container = document.querySelector(".section__cartPage--wrapper");
     container.classList.add("fetching__error");
     container.innerHTML =
       "An error has occurred, we couldn't display our goods.<br>Please start the local server (port 3000).<br>If the problem doesn't go away, please contact us!";

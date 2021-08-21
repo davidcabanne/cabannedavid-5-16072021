@@ -620,6 +620,23 @@ li a:hover {
   font-size: calc(var(--responsive-font-size) / 1.8);
 }
 
+.fetching__error {
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--darks);
+  font-weight: 500;
+  text-align: center;
+  height: 65vh;
+}
+
+.fetching__error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: -1;
+}
+
 /*******************************/
 /* DYN JAVASCRIPT ends HERE  */
 /*******************************/

@@ -723,12 +723,6 @@ li a:hover {
     align-items: flex-start;
   }
 
-  .orderSummary__option--selectOpt,
-  .orderSummary__qty--select,
-  .orderSummary__price {
-    color: var(--secondary-cta);
-    font-weight: 800;
-  }
   .orderSummary__img {
     width: 100px;
     height: 100px;

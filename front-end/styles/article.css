@@ -452,6 +452,16 @@ li a:hover {
   height: 65vh;
 }
 
+.fetching__error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  border-radius: 0px;
+  z-index: -1;
+}
+
 /* CART ERROR SECTION starts here */
 .cartError__section {
   top: 0;

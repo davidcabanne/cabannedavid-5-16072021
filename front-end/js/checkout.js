@@ -262,8 +262,6 @@ function displayId(order) {
 function displayErr() {
   console.log("Please fill the form");
 
-  // const displayErrContainer = document.getElementById("section__displayError");
-
   const displayIdContainer = document.getElementById("section__displayError");
 
   const displayIdWrapper = document.createElement("div");
