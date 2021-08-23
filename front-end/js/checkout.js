@@ -260,8 +260,6 @@ function displayId(order) {
 }
 
 function displayErr() {
-  console.log("Please fill the form");
-
   const displayIdContainer = document.getElementById("section__displayError");
 
   const displayIdWrapper = document.createElement("div");
@@ -298,8 +296,6 @@ function displayErr() {
 
 function displayCart() {
   let cart = JSON.parse(localStorage.getItem("cart"));
-
-  console.log(cart);
 
   const totalPriceContainer = document.querySelector(".totalPrice__result");
 

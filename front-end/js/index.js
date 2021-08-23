@@ -56,7 +56,7 @@ function renderArticle(article) {
   const defaultOption = renderOption("empty", "Available lenses");
   lenses.appendChild(defaultOption);
 
-  // Loop: for each lens of article.lesens
+  // Loop: for each lens of article.lenses
   article.lenses.forEach(function (value, index) {
     // = > render the option through func renderOption
     const option = renderOption(index, value);

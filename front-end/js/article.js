@@ -18,7 +18,7 @@
   }
 })();
 
-// Renders and article object to a DOM node
+// Updates an article object to a DOM node
 function updateArticle(article) {
   const img = document.querySelector(".article__image--custom");
   img.setAttribute("src", article.imageUrl);
