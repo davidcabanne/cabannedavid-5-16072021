@@ -226,18 +226,41 @@ function displayId(order) {
 
   const displayIdWrapper = document.createElement("div");
   const displayNotification = document.createElement("div");
+  const displayTotalPrice = document.createElement("div");
   const displayId = document.createElement("div");
   const closeDisplayId = document.createElement("div");
 
   displayIdContainer.appendChild(displayIdWrapper);
   displayIdWrapper.appendChild(displayNotification);
+  displayIdWrapper.appendChild(displayTotalPrice);
   displayIdWrapper.appendChild(displayId);
   displayIdWrapper.appendChild(closeDisplayId);
 
   displayIdWrapper.classList.add("displayId__Wrapper");
 
-  displayNotification.innerHTML = `Your order has been successfully processed and you will shortly receive an email from CAM&RAS confirming your transaction!`;
+  displayNotification.innerHTML = `Thanks <span class="displayId_name">${order.contact.firstName}</span> <span class="displayId_name">${order.contact.lastName}</span>, your order has been successfully processed and you will shortly receive an email from CAM&RAS confirming your transaction!`;
   displayNotification.classList.add("displayId__text");
+
+  // YOYOYOYOYYO
+  displayTotalPrice.innerHTML = `Total Price : <span class="displayId__orderId">${order.contact.firstName}</span>`;
+  displayTotalPrice.classList.add("displayId__nbr");
+  displayTotalPrice.classList.add("displayId__totalPrice");
+  // YOYOYOYOYYO
+  let cart = JSON.parse(localStorage.getItem("cart"));
+
+  if (cart.length > 0) {
+    const totalPricesOrder = [];
+
+    for (let i = 0; i < cart.length; i++) {
+      const cartItem = cart[i];
+
+      const cartPrices = cart[i].articlePrice * cart[i].quantity;
+
+      totalPricesOrder.push(cartPrices);
+    }
+    totalPriceReducerOrder(totalPricesOrder);
+  }
+  // YOYOYOYO
 
   displayId.innerHTML = `Your order ID is:</br> <span class="displayId__orderId">${order.orderId}</span>`;
   displayId.classList.add("displayId__nbr");
@@ -377,6 +400,26 @@ function totalPriceReducer(totalPriceContainer, totalPricesArray) {
   });
 
   totalPriceContainer.innerHTML = currencyFormatter.format(totalPrice / 100);
+
+  return;
+}
+
+function totalPriceReducerOrder(totalPricesOrder) {
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  const totalPrice = totalPricesOrder.reduce(reducer, 0);
+
+  const currencyFormatter = new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  const totalPriceContainerOrder = document.querySelector(
+    ".displayId__orderId"
+  );
+
+  totalPriceContainerOrder.innerHTML = currencyFormatter.format(
+    totalPrice / 100
+  );
 
   return;
 }

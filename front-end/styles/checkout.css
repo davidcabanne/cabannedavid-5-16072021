@@ -621,7 +621,11 @@ li a:hover {
 .displayId__text {
   margin-bottom: 30px;
 }
-.displayId__orderId {
+.displayId__totalPrice {
+  margin-bottom: 30px;
+}
+.displayId__orderId,
+.displayId_name {
   color: var(--secondary);
 }
 .displayId__exit {
